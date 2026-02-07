@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "PAUSH Group - Multi-business conglomerate website",
   "private": true,
+  "homepage": "https://paushtechnologies.github.io/PAUSHGroup",
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
@@ -17,6 +18,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
