@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/PAUSHGroup/static/css/main.ef57dc48.css",
-    "main.js": "/PAUSHGroup/static/js/main.84bcfd17.js",
+    "main.js": "/PAUSHGroup/static/js/main.d0d14479.js",
     "index.html": "/PAUSHGroup/index.html",
     "main.ef57dc48.css.map": "/PAUSHGroup/static/css/main.ef57dc48.css.map",
-    "main.84bcfd17.js.map": "/PAUSHGroup/static/js/main.84bcfd17.js.map"
+    "main.d0d14479.js.map": "/PAUSHGroup/static/js/main.d0d14479.js.map"
   },
   "entrypoints": [
     "static/css/main.ef57dc48.css",
-    "static/js/main.84bcfd17.js"
+    "static/js/main.d0d14479.js"
   ]
 }
