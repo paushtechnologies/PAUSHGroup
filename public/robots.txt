@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+# Directives for search engines
+Sitemap: https://paushgroup.in/sitemap.xml
+
+# Crawl-delay for smaller bots
+Crawl-delay: 5

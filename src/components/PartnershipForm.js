@@ -1,0 +1,298 @@
+import React, { useState } from 'react';
+import {
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    TextField,
+    Button,
+    Box,
+    Typography,
+    CircularProgress,
+    Alert,
+    MenuItem,
+    Grid,
+    IconButton,
+} from '@mui/material';
+import { Close, Send, Handshake } from '@mui/icons-material';
+import { motion, AnimatePresence } from 'framer-motion';
+import { EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_PUBLIC_KEY } from '../config';
+
+const PartnershipForm = ({ open, onClose }) => {
+    const [formData, setFormData] = useState({
+        name: '',
+        organization: '',
+        email: '',
+        phone: '',
+        interest: '',
+        collaborationType: '',
+        message: '',
+    });
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState(false);
+
+    const interestOptions = [
+        'Technology & AI Solutions',
+        'Financial Services & Equity',
+        'Real Estate & Realty',
+        'Interior & Civil Works',
+        'News & Digital Media',
+        'All Verticals',
+    ];
+
+    const collaborationOptions = [
+        'Strategic Partnership',
+        'Joint Venture',
+        'Service Provider',
+        'Investment Opportunity',
+        'Referral Partner',
+        'Other',
+    ];
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        });
+        setError('');
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setLoading(true);
+
+        // Constructing mailto link as requested to send to paushgroup@gmail.com
+        const subject = `Partnership Inquiry: ${formData.organization || formData.name}`;
+        const body = `
+Partnership Inquiry Details:
+---------------------------
+Name: ${formData.name}
+Organization: ${formData.organization || 'N/A'}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Vertical of Interest: ${formData.interest}
+Collaboration Type: ${formData.collaborationType}
+
+Message:
+${formData.message}
+    `;
+
+        // Send with EmailJS (Parallel)
+        if (window.emailjs) {
+            window.emailjs.init(EMAILJS_PUBLIC_KEY);
+            window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+                from_name: formData.name,
+                from_email: formData.email,
+                phone: formData.phone,
+                organization: formData.organization || 'N/A',
+                interest: formData.interest,
+                collaboration_type: formData.collaborationType,
+                message: formData.message,
+                to_email: 'paushgroup@gmail.com',
+                service_type: 'Partnership Inquiry'
+            }).catch(mailErr => console.error('EmailJS failed:', mailErr));
+        }
+
+        const mailtoUrl = `mailto:paushgroup@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+        // Simulate slight delay for UX
+        setTimeout(() => {
+            window.location.href = mailtoUrl;
+            setSuccess(true);
+            setLoading(false);
+
+            setTimeout(() => {
+                setSuccess(false);
+                onClose();
+            }, 3000);
+        }, 800);
+    };
+
+    const handleClose = () => {
+        if (!loading) {
+            setFormData({
+                name: '',
+                organization: '',
+                email: '',
+                phone: '',
+                interest: '',
+                collaborationType: '',
+                message: '',
+            });
+            setError('');
+            setSuccess(false);
+            onClose();
+        }
+    };
+
+    return (
+        <Dialog
+            open={open}
+            onClose={handleClose}
+            maxWidth="sm"
+            fullWidth
+            PaperProps={{
+                sx: {
+                    background: 'var(--bg-primary)',
+                    borderRadius: 4,
+                    boxShadow: '0 30px 60px rgba(0, 0, 0, 0.2)',
+                },
+            }}
+        >
+            <DialogTitle sx={{ p: 3, pb: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                    <Box sx={{ p: 0.8, borderRadius: 2, background: 'var(--gradient-ocean)', color: 'white', display: 'flex' }}>
+                        <Handshake sx={{ fontSize: 24 }} />
+                    </Box>
+                    <Typography variant="h5" sx={{ fontWeight: 900, fontSize: '1.4rem' }}>Partner With Us</Typography>
+                </Box>
+                <IconButton onClick={handleClose} size="small"><Close /></IconButton>
+            </DialogTitle>
+
+            <form onSubmit={handleSubmit}>
+                <DialogContent sx={{ p: 3, pt: 0 }}>
+                    <Typography variant="body2" sx={{ mb: 2, color: 'var(--text-secondary)', fontWeight: 500, fontSize: '0.85rem' }}>
+                        Join the PAUSH Group ecosystem. Share your details below.
+                    </Typography>
+
+                    <AnimatePresence>
+                        {success && (
+                            <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
+                                <Alert severity="success" sx={{ mb: 3, borderRadius: 2, fontWeight: 700 }}>
+                                    Opening your email client... Please send the generated email to reach us!
+                                </Alert>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                fullWidth
+                                name="name"
+                                label="Your Name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                sx={textFieldStyles}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                fullWidth
+                                name="organization"
+                                label="Organization / Company"
+                                value={formData.organization}
+                                onChange={handleChange}
+                                sx={textFieldStyles}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                fullWidth
+                                name="email"
+                                label="Email Address"
+                                type="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                sx={textFieldStyles}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                fullWidth
+                                name="phone"
+                                label="Phone Number"
+                                value={formData.phone}
+                                onChange={handleChange}
+                                sx={textFieldStyles}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                required
+                                fullWidth
+                                select
+                                name="interest"
+                                label="Vertical of Interest"
+                                value={formData.interest}
+                                onChange={handleChange}
+                                sx={textFieldStyles}
+                            >
+                                {interestOptions.map((opt) => (
+                                    <MenuItem key={opt} value={opt}>{opt}</MenuItem>
+                                ))}
+                            </TextField>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                required
+                                fullWidth
+                                select
+                                name="collaborationType"
+                                label="Type of Collaboration"
+                                value={formData.collaborationType}
+                                onChange={handleChange}
+                                sx={textFieldStyles}
+                            >
+                                {collaborationOptions.map((opt) => (
+                                    <MenuItem key={opt} value={opt}>{opt}</MenuItem>
+                                ))}
+                            </TextField>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                fullWidth
+                                multiline
+                                rows={2}
+                                name="message"
+                                label="How can we help each other grow?"
+                                value={formData.message}
+                                onChange={handleChange}
+                                sx={textFieldStyles}
+                            />
+                        </Grid>
+                    </Grid>
+                </DialogContent>
+
+                <DialogActions sx={{ p: 3, pt: 0.5 }}>
+                    <Button onClick={handleClose} sx={{ fontWeight: 800, color: 'var(--text-secondary)', fontSize: '0.85rem' }}>
+                        Cancel
+                    </Button>
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        disabled={loading}
+                        endIcon={loading ? <CircularProgress size={18} color="inherit" /> : <Send />}
+                        sx={{
+                            px: 4,
+                            py: 1.2,
+                            borderRadius: 3,
+                            fontWeight: 900,
+                            background: 'var(--gradient-ocean)',
+                            boxShadow: '0 8px 16px rgba(0, 71, 171, 0.2)',
+                            fontSize: '0.9rem'
+                        }}
+                    >
+                        {loading ? 'Processing...' : 'Send Proposal'}
+                    </Button>
+                </DialogActions>
+            </form>
+        </Dialog>
+    );
+};
+
+const textFieldStyles = {
+    '& .MuiOutlinedInput-root': {
+        borderRadius: 3,
+        backgroundColor: '#fff',
+        '& fieldset': { borderColor: 'rgba(0, 0, 0, 0.08)' },
+        '&:hover fieldset': { borderColor: 'var(--primary)' },
+        '&.Mui-focused fieldset': { borderColor: 'var(--primary)', borderWidth: 2 },
+    },
+};
+
+export default PartnershipForm;
