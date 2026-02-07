@@ -94,11 +94,8 @@ ${formData.message}
             }).catch(mailErr => console.error('EmailJS failed:', mailErr));
         }
 
-        const mailtoUrl = `mailto:paushgroup@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
         // Simulate slight delay for UX
         setTimeout(() => {
-            window.location.href = mailtoUrl;
             setSuccess(true);
             setLoading(false);
 
@@ -160,7 +157,7 @@ ${formData.message}
                         {success && (
                             <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
                                 <Alert severity="success" sx={{ mb: 3, borderRadius: 2, fontWeight: 700 }}>
-                                    Opening your email client... Please send the generated email to reach us!
+                                    Your request has been sent! Our team will reach out shortly.
                                 </Alert>
                             </motion.div>
                         )}

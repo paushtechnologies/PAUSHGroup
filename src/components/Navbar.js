@@ -135,24 +135,25 @@ const Navbar = () => {
       <AppBar
         position="fixed"
         sx={{
-          backgroundColor: scrolled ? 'rgba(255, 255, 255, 0.7)' : 'transparent',
-          backdropFilter: scrolled ? 'blur(20px)' : 'none',
-          boxShadow: scrolled ? '0 10px 40px rgba(0,0,0,0.06)' : 'none',
-          borderBottom: scrolled ? '1px solid rgba(255, 255, 255, 0.3)' : 'none',
-          transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+          backgroundColor: scrolled ? 'rgba(255, 255, 255, 0.35)' : 'transparent',
+          backdropFilter: scrolled ? 'blur(30px) saturate(180%)' : 'none',
+          WebkitBackdropFilter: scrolled ? 'blur(30px) saturate(180%)' : 'none',
+          boxShadow: scrolled ? '0 15px 45px rgba(0, 71, 171, 0.08), inset 0 0 0 1px rgba(255, 255, 255, 0.4)' : 'none',
+          borderBottom: scrolled ? '1px solid rgba(255, 255, 255, 0.2)' : 'none',
+          transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
           zIndex: (theme) => theme.zIndex.drawer + 2,
         }}
       >
         <Container maxWidth="xl">
           <Toolbar sx={{ justifyContent: 'space-between', height: scrolled ? 75 : 100, transition: 'all 0.5s ease' }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, cursor: 'pointer' }} onClick={() => scrollTo('home')}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, cursor: 'pointer' }} onClick={() => scrollTo('home')}>
               <Box
                 component="img"
-                src="/logo1.png"
+                src={process.env.PUBLIC_URL + '/logo1.png'}
                 alt="PAUSH Group Logo"
                 sx={{
-                  width: 72,
-                  height: 72,
+                  width: 52,
+                  height: 52,
                   objectFit: 'contain',
                   filter: 'drop-shadow(0 4px 12px rgba(0, 71, 171, 0.25))',
                 }}

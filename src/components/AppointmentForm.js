@@ -162,39 +162,17 @@ const AppointmentForm = ({ open, onClose, type = 'appointment', googleSheetUrl }
         }
       }
 
-      // 3. Fallback/Manual: Open Email Client (Same as PartnershipForm)
-      const subject = `${type === 'appointment' ? 'Equity Guidance' : 'Interior Consultation'} Request: ${formData.name}`;
-      const body = `
-New Service Inquiry Details:
----------------------------
-Service: ${type === 'appointment' ? 'Equity Guidance' : 'Interior Consultation'}
-Name: ${formData.name}
-Email: ${formData.email}
-Phone: ${formData.phone}
-Date: ${formData.preferredDate}
-Time: ${formData.preferredTime}
-Purpose: ${formData.purpose || 'N/A'}
-
-Message:
-${formData.message || 'N/A'}
-      `;
-
-      const mailtoUrl = `mailto:paushgroup@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-      setTimeout(() => {
-        window.location.href = mailtoUrl;
-        setSuccess(true);
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          preferredDate: '',
-          preferredTime: '',
-          duration: '',
-          purpose: '',
-          message: '',
-        });
-      }, 500);
+      setSuccess(true);
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        preferredDate: '',
+        preferredTime: '',
+        duration: '',
+        purpose: '',
+        message: '',
+      });
 
       setTimeout(() => {
         setSuccess(false);
@@ -296,7 +274,7 @@ ${formData.message || 'N/A'}
       </AnimatePresence>
 
       <form onSubmit={handleSubmit}>
-        <DialogContent sx={{ p: 3, pt: 0 }}>
+        <DialogContent sx={{ p: 3, pt: 1.5 }}>
           {error && (
             <Alert severity="error" sx={{ mb: 3, borderRadius: 2 }}>
               {error}
