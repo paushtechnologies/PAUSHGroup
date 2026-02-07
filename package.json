@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "PAUSH Group - Multi-business conglomerate website",
   "private": true,
-  "homepage": "https://paushtechnologies.github.io/PAUSHGroup",
+  "homepage": "https://paushgroup.in",
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
