@@ -37,7 +37,7 @@ const Hero = () => {
     <Box
       id="home"
       sx={{
-        minHeight: '100vh',
+        minHeight: { xs: 'auto', md: '100vh' },
         width: '100%',
         display: 'flex',
         alignItems: 'center',
@@ -45,7 +45,7 @@ const Hero = () => {
         position: 'relative',
         overflow: 'hidden',
         pt: { xs: 10, md: 10 },
-        pb: { xs: 6, md: 10 },
+        pb: { xs: 8, md: 10 },
       }}
     >
       {/* 🌟 HIGHLY NOTICEABLE Animated Background Elements */}
@@ -120,7 +120,7 @@ const Hero = () => {
       </Box>
 
       <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 10 }}>
-        <Grid container spacing={{ xs: 6, lg: 6 }} alignItems="center">
+        <Grid container spacing={{ xs: 2, lg: 6 }} alignItems="center">
           <Grid item xs={12} lg={6}>
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -132,14 +132,14 @@ const Hero = () => {
                   sx={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: 1.5,
+                    gap: 0,
                     px: 2,
                     py: 0.8,
                     background: 'white',
                     borderRadius: 50,
                     width: 'fit-content',
                     boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
-                    mb: { xs: 2.5, md: 4 },
+                    mb: { xs: 1.5, md: 4 },
                   }}
                 >
                   <RocketLaunch sx={{ fontSize: 16, color: 'var(--primary)' }} />
@@ -152,10 +152,10 @@ const Hero = () => {
                   variant="h1"
                   sx={{
                     fontWeight: 950,
-                    fontSize: { xs: '2.4rem', sm: '3.5rem', md: '4.5rem', xl: '5.5rem' },
+                    fontSize: { xs: '2.1rem', sm: '3rem', md: '4.5rem', xl: '5.5rem' },
                     lineHeight: { xs: 1.1, md: 1.1 },
                     letterSpacing: '-0.04em',
-                    mb: { xs: 2, md: 2 },
+                    mb: { xs: 0, md: 2 },
                   }}
                 >
                   <Typography component="span" sx={{ display: 'none' }}>PAUSH Group: </Typography>
@@ -169,7 +169,7 @@ const Hero = () => {
                     color: 'var(--text-secondary)',
                     fontSize: { xs: '0.95rem', md: '1.4rem' },
                     lineHeight: 1.5,
-                    mb: { xs: 4, md: 6 },
+                    mb: { xs: 2, md: 6 },
                     maxWidth: 550,
                     fontWeight: 500
                   }}
@@ -186,8 +186,8 @@ const Hero = () => {
                     sx={{
                       background: 'var(--gradient-ocean)',
                       px: { xs: 4, md: 5 },
-                      py: { xs: 1.6, md: 2.2 },
-                      fontSize: { xs: '0.95rem', md: '1.1rem' },
+                      py: { xs: 1.2, md: 2.2 },
+                      fontSize: { xs: '0.9rem', md: '1.1rem' },
                       fontWeight: 900,
                       borderRadius: 3,
                       boxShadow: '0 20px 40px rgba(0, 71, 171, 0.2)',
@@ -202,8 +202,8 @@ const Hero = () => {
                     className="animate-pulse-premium"
                     sx={{
                       px: { xs: 4, md: 5 },
-                      py: { xs: 1.6, md: 2.2 },
-                      fontSize: { xs: '0.95rem', md: '1.1rem' },
+                      py: { xs: 1.2, md: 2.2 },
+                      fontSize: { xs: '0.9rem', md: '1.1rem' },
                       fontWeight: 800,
                       borderRadius: 3,
                       borderWidth: 2,
@@ -229,9 +229,9 @@ const Hero = () => {
               >
                 <Box
                   sx={{
-                    marginTop: '10px',
+                    marginTop: { xs: 0, md: '10px' },
                     width: '100%',
-                    aspectRatio: '1.1/1',
+                    aspectRatio: { xs: '1.2/1', md: '1.1/1' },
                     borderRadius: { xs: 6, md: 10 },
                     overflow: 'hidden',
                     boxShadow: 'var(--shadow-medium)',
@@ -300,7 +300,7 @@ const Hero = () => {
             </Box>
           </Grid>
         </Grid>
-      </Container>
+      </Container >
       <PartnershipForm open={partnershipOpen} onClose={() => setPartnershipOpen(false)} />
     </Box >
   );

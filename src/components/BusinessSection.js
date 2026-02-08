@@ -69,12 +69,13 @@ const StickyCard = ({ business, index, handleCardClick, setConsultationOpen, set
   return (
     <Box
       ref={ref}
+      id={business.anchorId}
       sx={{
         position: 'sticky',
-        // Uniform top for all cards to ensure full overlap
         top: { xs: 75, md: 90 },
-        // Balanced scroll distance between sticky moments
-        mb: { xs: 40, md: 40 },
+        // IMPORTANT: 100vh margin creates the height needed for the sticky effect to 'hold' 
+        // each card, making it possible to scroll to specific cards from the footer.
+        mb: '100vh',
         zIndex: index,
         willChange: 'transform, opacity',
       }}
@@ -174,7 +175,7 @@ const StickyCard = ({ business, index, handleCardClick, setConsultationOpen, set
                 color: 'rgba(0,0,0,0.03)',
                 fontSize: { xs: '2.5rem', md: '5.5rem' },
                 lineHeight: 0.8,
-                display: { xs: 'none', sm: 'block' }
+                display: 'block'
               }}>
                 0{index + 1}
               </Typography>
@@ -191,12 +192,7 @@ const StickyCard = ({ business, index, handleCardClick, setConsultationOpen, set
                 maxWidth: { md: '100%' }
               }}
             >
-              <Box component="span" sx={{ display: { xs: 'block', md: 'none' } }}>
-                {business.description}
-              </Box>
-              <Box component="span" sx={{ display: { xs: 'none', md: 'block' } }}>
-                {business.desktopDescription || business.description}
-              </Box>
+              {business.desktopDescription || business.description}
             </Typography>
 
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: { xs: 1, md: 1.5 }, mb: { xs: 2.5, md: 2 } }}>
@@ -234,8 +230,7 @@ const StickyCard = ({ business, index, handleCardClick, setConsultationOpen, set
                       boxShadow: '0 15px 35px rgba(0, 71, 171, 0.15)'
                     }}
                   >
-                    <Box component="span" sx={{ display: { xs: 'block', md: 'none' } }}>Consult</Box>
-                    <Box component="span" sx={{ display: { xs: 'none', md: 'block' } }}>Book Consultation</Box>
+                    Book Consultation
                   </Button>
                   <Button
                     variant="outlined"
@@ -302,18 +297,20 @@ const BusinessSection = () => {
       available: true,
       actionType: 'link',
       link: 'https://tech.paushgroup.in',
+      anchorId: 'digital-solutions',
     },
     {
       id: 4,
       title: 'Interior Space',
       icon: <DesignServices sx={{ fontSize: 40 }} />,
-      description: 'End-to-End interior planning, design, and construction services across North India, delivering high-quality residential and commercial interior solutions through integrated expertise and execution.',
-      desktopDescription: 'We provide complete interior turnkey solutions, managing every stage from initial conceptual architectural planning to final execution and handover. Our focus on high-end residential and commercial projects across North India combines luxury aesthetics with functional engineering, ensuring every vision is delivered with uncompromising quality.',
+      description: 'End-to-end interior planning, design, and construction services across North India, delivering high-quality residential and commercial interior solutions through integrated expertise and execution.',
+      desktopDescription: 'We provide complete interior turnkey solutions, managing every stage from initial conceptual architectural planning to final execution and handover. Our projects across North India combine luxury aesthetics with functional engineering, ensuring every vision is delivered with uncompromising quality.',
       services: ['Planning', 'Handover Support', 'Execution'],
       image: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&q=90',
       available: true,
       actionType: 'interior',
       hasMultipleActions: true,
+      anchorId: 'interior-space',
     },
     {
       id: 6,
@@ -325,7 +322,8 @@ const BusinessSection = () => {
       image: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200&q=90',
       available: true,
       actionType: 'link',
-      link: 'https://linkbharat.paushgroup.in',
+      link: 'https://livebharat.paushgroup.in',
+      anchorId: 'digital-media',
     },
     {
       id: 2,
@@ -337,6 +335,7 @@ const BusinessSection = () => {
       image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=90',
       available: true,
       actionType: 'appointment',
+      anchorId: 'equity-guidance',
     },
     {
       id: 5,
@@ -348,6 +347,7 @@ const BusinessSection = () => {
       image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80',
       available: false,
       actionType: 'offers',
+      anchorId: 'fintech-advisory',
     },
     {
       id: 7,
@@ -359,6 +359,7 @@ const BusinessSection = () => {
       image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&q=90',
       available: true,
       actionType: 'logistics',
+      anchorId: 'swift-logistics',
     },
     {
       id: 3,
@@ -370,8 +371,15 @@ const BusinessSection = () => {
       image: 'https://images.unsplash.com/photo-1448630360428-65456885c650?w=1200&q=90',
       available: true,
       actionType: 'realestate',
+      anchorId: 'verified-realty',
     },
   ];
+
+  // Remove the 100vh margin from the very last card to avoid excess footer gap
+  const businessesWithZones = businesses.map((b, i) => ({
+    ...b,
+    isLast: i === businesses.length - 1
+  }));
 
   const handleCardClick = (business) => {
     if (business.hasMultipleActions) return;
@@ -423,7 +431,7 @@ const BusinessSection = () => {
         </Box>
 
         <Box sx={{ display: 'flex', flexDirection: 'column', position: 'relative' }}>
-          {businesses.map((business, index) => (
+          {businessesWithZones.map((business, index) => (
             <StickyCard
               key={business.id}
               business={business}
@@ -431,6 +439,7 @@ const BusinessSection = () => {
               handleCardClick={handleCardClick}
               setConsultationOpen={setConsultationOpen}
               setInteriorPortfolioOpen={setInteriorPortfolioOpen}
+              sx={business.isLast ? { mb: { xs: 8, md: 15 } } : {}}
             />
           ))}
         </Box>

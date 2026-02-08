@@ -26,12 +26,13 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const businessLinks = [
-    { name: 'Digital Support', href: '#services' },
-    { name: 'Equity Reviews', href: '#services' },
-    { name: 'Verified Land', href: '#services' },
-    { name: 'Interior Space', href: '#services' },
-    { name: 'Financial Hub', href: '#services' },
-    { name: 'Market Trends', href: '#services' },
+    { name: 'Digital Support', href: '#digital-solutions' },
+    { name: 'Equity Reviews', href: '#equity-guidance' },
+    { name: 'Verified Land', href: '#verified-realty' },
+    { name: 'Interior Space', href: '#interior-space' },
+    { name: 'Financial Hub', href: '#fintech-advisory' },
+    { name: 'Swift Logistics', href: '#swift-logistics' },
+    { name: 'Market Trends', href: '#digital-media' },
   ];
 
   const quickLinks = [
@@ -45,9 +46,7 @@ const Footer = () => {
     const el = document.querySelector(href);
     if (el) {
       const offset = 80;
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = el.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
+      const elementPosition = el.getBoundingClientRect().top + window.pageYOffset;
       const offsetPosition = elementPosition - offset;
 
       window.scrollTo({
@@ -65,8 +64,8 @@ const Footer = () => {
         backgroundColor: '#f8fafc',
         position: 'relative',
         overflow: 'hidden',
-        pt: { xs: 4, md: 12 },
-        pb: { xs: 3, md: 4 },
+        pt: { xs: 2.5, md: 12 },
+        pb: { xs: 2, md: 4 },
       }}
     >
       {/* 🌟 VIBRANT LIGHT MOTION BACKGROUND */}
@@ -91,7 +90,7 @@ const Footer = () => {
       </Box>
 
       <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 10 }}>
-        <Grid container spacing={{ xs: 3, lg: 8 }}>
+        <Grid container spacing={{ xs: 2, lg: 8 }}>
           {/* Main Brand Section */}
           <Grid item xs={12} lg={5}>
             <motion.div
@@ -103,7 +102,7 @@ const Footer = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: { xs: 'center', lg: 'flex-start' },
-                mb: { xs: 2.2, md: 5 }
+                mb: { xs: 1.5, md: 5 }
               }}>
                 <Box sx={{
                   display: 'flex',
@@ -174,10 +173,10 @@ const Footer = () => {
                 sx={{
                   color: '#0f172a',
                   lineHeight: { xs: 1.4, md: 1.7 },
-                  mb: { xs: 5, md: 4 },
+                  mb: { xs: 2.5, md: 4 },
                   maxWidth: { xs: '100%', lg: 500 },
                   fontWeight: 600,
-                  fontSize: { xs: '1rem', md: '1.25rem' },
+                  fontSize: { xs: '0.9rem', md: '1.1rem' },
                   textAlign: { xs: 'center', lg: 'left' },
                   opacity: 0.9
                 }}
@@ -193,7 +192,7 @@ const Footer = () => {
                   alignItems: 'center',
                   justifyContent: { xs: 'center', lg: 'flex-start' },
                   flexWrap: 'wrap',
-                  gap: { xs: 1, sm: 0 }
+                  gap: { xs: 0.8, sm: 0 }
                 }}
               >
                 <Button
@@ -248,12 +247,25 @@ const Footer = () => {
 
           {/* Links Section */}
           <Grid item xs={12} lg={7}>
-            <Grid container spacing={{ xs: 3, md: 6 }}>
-              <Grid item xs={6} sm={4} sx={{ textAlign: { xs: 'center', sm: 'left' } }}>
-                <Typography variant="h6" sx={{ fontWeight: 950, mb: { xs: 1.5, md: 4 }, color: 'var(--text-primary)', fontSize: { xs: '0.65rem', md: '0.85rem' }, textTransform: 'uppercase', letterSpacing: '0.15em' }}>
-                  Verticals
-                </Typography>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 1, md: 2.5 } }}>
+            <Grid container spacing={{ xs: 2.2, md: 6 }}>
+              <Grid item xs={6} sm={4} sx={{ display: { xs: 'none', sm: 'block' }, textAlign: { xs: 'center', sm: 'left' } }}>
+                <Box sx={{ mb: { xs: 1.2, md: 3 }, textAlign: { xs: 'center', sm: 'left' } }}>
+                  <Typography variant="h6" sx={{
+                    fontWeight: 950,
+                    color: 'var(--primary)',
+                    fontSize: { xs: '0.75rem', md: '0.9rem' },
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.2em',
+                    display: 'inline-flex',
+                    flexDirection: 'column',
+                    alignItems: { xs: 'center', sm: 'flex-start' },
+                    gap: 0.5
+                  }}>
+                    Verticals
+                    <Box sx={{ width: '12px', height: '2.5px', background: 'var(--accent)', borderRadius: 2 }} />
+                  </Typography>
+                </Box>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.5, md: 2.5 } }}>
                   {businessLinks.map((link) => (
                     <Link
                       key={link.name}
@@ -274,11 +286,24 @@ const Footer = () => {
                 </Box>
               </Grid>
 
-              <Grid item xs={6} sm={4} sx={{ textAlign: { xs: 'center', sm: 'left' } }}>
-                <Typography variant="h6" sx={{ fontWeight: 950, mb: { xs: 1.5, md: 4 }, color: 'var(--text-primary)', fontSize: { xs: '0.65rem', md: '0.85rem' }, textTransform: 'uppercase', letterSpacing: '0.15em' }}>
-                  Navigation
-                </Typography>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 1, md: 2.5 } }}>
+              <Grid item xs={12} sm={4} sx={{ textAlign: { xs: 'center', sm: 'left' } }}>
+                <Box sx={{ mb: { xs: 1.2, md: 3 }, textAlign: { xs: 'center', sm: 'left' } }}>
+                  <Typography variant="h6" sx={{
+                    fontWeight: 950,
+                    color: 'var(--primary)',
+                    fontSize: { xs: '0.75rem', md: '0.9rem' },
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.2em',
+                    display: 'inline-flex',
+                    flexDirection: 'column',
+                    alignItems: { xs: 'center', sm: 'flex-start' },
+                    gap: 0.5
+                  }}>
+                    Navigation
+                    <Box sx={{ width: '12px', height: '2.5px', background: 'var(--accent)', borderRadius: 2 }} />
+                  </Typography>
+                </Box>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.5, md: 2.5 } }}>
                   {quickLinks.map((link) => (
                     <Link
                       key={link.name}
@@ -300,10 +325,23 @@ const Footer = () => {
               </Grid>
 
               <Grid item xs={12} sm={4} sx={{ textAlign: 'left' }}>
-                <Typography variant="h6" sx={{ fontWeight: 950, mb: { xs: 1.5, md: 4 }, color: 'var(--text-primary)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.15em' }}>
-                  Headquarters
-                </Typography>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 2, md: 4 }, alignItems: 'flex-start' }}>
+                <Box sx={{ mb: { xs: 1.2, md: 3 }, textAlign: 'left' }}>
+                  <Typography variant="h6" sx={{
+                    fontWeight: 950,
+                    color: 'var(--primary)',
+                    fontSize: { xs: '0.75rem', md: '0.9rem' },
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.2em',
+                    display: 'inline-flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                    gap: 0.5
+                  }}>
+                    Headquarters
+                    <Box sx={{ width: '12px', height: '2.5px', background: 'var(--accent)', borderRadius: 2 }} />
+                  </Typography>
+                </Box>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.8, md: 4 }, alignItems: 'flex-start' }}>
                   <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start', justifyContent: 'flex-start' }}>
                     <LocationOn sx={{ color: 'var(--primary)', fontSize: { xs: 20, md: 24 }, mt: 0.5 }} />
                     <Typography variant="body1" sx={{ fontWeight: 700, color: '#0f172a', lineHeight: 1.4, fontSize: { xs: '0.8rem', md: '1rem' }, textAlign: 'left' }}>
@@ -379,7 +417,7 @@ const Footer = () => {
           ))}
         </Box> */}
 
-        <Divider sx={{ my: { xs: 2.5, md: 6 }, borderColor: 'rgba(0, 71, 171, 0.12)' }} />
+        <Divider sx={{ my: { xs: 1.5, md: 6 }, borderColor: 'rgba(0, 71, 171, 0.12)' }} />
 
         <Box
           sx={{
@@ -387,7 +425,7 @@ const Footer = () => {
             flexDirection: { xs: 'column', md: 'row' },
             justifyContent: 'space-between',
             alignItems: 'center',
-            gap: { xs: 2.5, md: 4 },
+            gap: { xs: 0.8, md: 4 },
           }}
         >
           <Typography variant="body2" sx={{ color: '#475569', fontWeight: 800, letterSpacing: '0.05em', textAlign: 'center', fontSize: { xs: '0.65rem', md: '0.8rem' } }}>
