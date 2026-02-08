@@ -48,10 +48,10 @@ const Counter = ({ value, suffix = "" }) => {
 const StickyCard = ({ business, index, handleCardClick, setConsultationOpen, setInteriorPortfolioOpen }) => {
   const ref = useRef(null);
 
-  // Use scroll progress for the animation effects
+  // Use scroll progress for the animation effects - tracking entry and exit
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ['start end', 'start start']
+    offset: ['start end', 'end start']
   });
 
   // Optimized animation curves - softer spring for a premium "liquid" feel on all devices
@@ -62,9 +62,11 @@ const StickyCard = ({ business, index, handleCardClick, setConsultationOpen, set
     restDelta: 0.001
   };
 
-  const smoothScale = useSpring(useTransform(scrollYProgress, [0, 1], [0.96, 1]), springConfig);
-  const smoothOpacity = useSpring(useTransform(scrollYProgress, [0, 0.4], [0, 1]), springConfig);
-  const smoothY = useSpring(useTransform(scrollYProgress, [0, 1], [80, 0]), springConfig);
+  // Scale: Enters at 0.96 -> Active at 1.0 -> Shrinks to 0.8 as it is 'covered'
+  const smoothScale = useSpring(useTransform(scrollYProgress, [0, 0.3, 0.6, 0.9], [0.96, 1, 1, 0.8]), springConfig);
+  // Opacity: Fades in -> Stays opaque -> Dips slightly to 0.5 as it recedes
+  const smoothOpacity = useSpring(useTransform(scrollYProgress, [0, 0.2, 0.7, 0.9], [0, 1, 1, 0.5]), springConfig);
+  const smoothY = useSpring(useTransform(scrollYProgress, [0, 0.3], [80, 0]), springConfig);
 
   return (
     <Box
@@ -72,10 +74,11 @@ const StickyCard = ({ business, index, handleCardClick, setConsultationOpen, set
       id={business.anchorId}
       sx={{
         position: 'sticky',
-        top: { xs: 75, md: 90 },
-        // IMPORTANT: 100vh margin creates the height needed for the sticky effect to 'hold' 
-        // each card, making it possible to scroll to specific cards from the footer.
-        mb: '100vh',
+        // Cumulative top offset for mobile to create a 'stack' effect at the top
+        top: { xs: 60 + (index * 12), md: 100 },
+        // Increased margin creates the 'scroll depth' for the next card to come over
+        // Using 70vh for Desktop and 60vh for Mobile for a tighter but effective exit
+        mb: { xs: '60vh', md: '75vh' },
         zIndex: index,
         willChange: 'transform, opacity',
       }}
@@ -175,7 +178,7 @@ const StickyCard = ({ business, index, handleCardClick, setConsultationOpen, set
                 color: 'rgba(0,0,0,0.03)',
                 fontSize: { xs: '2.5rem', md: '5.5rem' },
                 lineHeight: 0.8,
-                display: 'block'
+                display: { xs: 'none', md: 'block' }
               }}>
                 0{index + 1}
               </Typography>
@@ -230,7 +233,8 @@ const StickyCard = ({ business, index, handleCardClick, setConsultationOpen, set
                       boxShadow: '0 15px 35px rgba(0, 71, 171, 0.15)'
                     }}
                   >
-                    Book Consultation
+                    <Box component="span" sx={{ display: { xs: 'none', md: 'inline' } }}>Book Consultation</Box>
+                    <Box component="span" sx={{ display: { xs: 'inline', md: 'none' } }}>Consult</Box>
                   </Button>
                   <Button
                     variant="outlined"
@@ -246,7 +250,8 @@ const StickyCard = ({ business, index, handleCardClick, setConsultationOpen, set
                       '&:hover': { borderWidth: { md: 2 } }
                     }}
                   >
-                    View Project Portfolio
+                    <Box component="span" sx={{ display: { xs: 'none', md: 'inline' } }}>View Project Portfolio</Box>
+                    <Box component="span" sx={{ display: { xs: 'inline', md: 'none' } }}>Portfolio</Box>
                   </Button>
                 </Stack>
               ) : (
@@ -265,7 +270,8 @@ const StickyCard = ({ business, index, handleCardClick, setConsultationOpen, set
                     boxShadow: '0 15px 35px rgba(0, 71, 171, 0.15)'
                   }}
                 >
-                  Explore In Detail
+                  <Box component="span" sx={{ display: { xs: 'none', md: 'inline' } }}>Explore In Detail</Box>
+                  <Box component="span" sx={{ display: { xs: 'inline', md: 'none' } }}>Explore</Box>
                 </Button>
               )}
             </Box>
@@ -304,7 +310,7 @@ const BusinessSection = () => {
       title: 'Interior Space',
       icon: <DesignServices sx={{ fontSize: 40 }} />,
       description: 'End-to-end interior planning, design, and construction services across North India, delivering high-quality residential and commercial interior solutions through integrated expertise and execution.',
-      desktopDescription: 'We provide complete interior turnkey solutions, managing every stage from initial conceptual architectural planning to final execution and handover. Our projects across North India combine luxury aesthetics with functional engineering, ensuring every vision is delivered with uncompromising quality.',
+      desktopDescription: 'We provide complete interior turnkey solutions, managing every stage from initial conceptual architectural planning to final execution and handover. Our focus on high-end residential and commercial projects across North India combines luxury aesthetics with functional engineering, ensuring every vision is delivered with uncompromising quality.',
       services: ['Planning', 'Handover Support', 'Execution'],
       image: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&q=90',
       available: true,
@@ -375,7 +381,6 @@ const BusinessSection = () => {
     },
   ];
 
-  // Remove the 100vh margin from the very last card to avoid excess footer gap
   const businessesWithZones = businesses.map((b, i) => ({
     ...b,
     isLast: i === businesses.length - 1
@@ -439,7 +444,6 @@ const BusinessSection = () => {
               handleCardClick={handleCardClick}
               setConsultationOpen={setConsultationOpen}
               setInteriorPortfolioOpen={setInteriorPortfolioOpen}
-              sx={business.isLast ? { mb: { xs: 8, md: 15 } } : {}}
             />
           ))}
         </Box>
