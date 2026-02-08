@@ -90,19 +90,20 @@ const Navbar = () => {
   };
 
   const drawer = (
-    <Box sx={{ width: 280, height: '100%', background: 'white', p: 3 }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
-        <Typography variant="h6" sx={{ fontWeight: 900, color: 'var(--primary)' }}>PAUSH Group</Typography>
-        <IconButton onClick={handleDrawerToggle}><CloseIcon /></IconButton>
+    <Box sx={{ width: 280, height: '100%', background: 'white', p: 2.5 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+        <Typography variant="h6" sx={{ fontWeight: 900, color: 'var(--primary)', fontSize: '1.1rem' }}>PAUSH Group</Typography>
+        <IconButton onClick={handleDrawerToggle} size="small"><CloseIcon /></IconButton>
       </Box>
-      <List>
+      <List sx={{ pt: 0 }}>
         {menuItems.map((item) => (
           <ListItem key={item.id} disablePadding>
             <ListItemButton
               onClick={() => scrollTo(item.id)}
               sx={{
-                borderRadius: 3,
-                mb: 1,
+                borderRadius: 2.5,
+                mb: 0.5,
+                py: 1.2,
                 backgroundColor: activeSection === item.id ? 'rgba(0, 71, 171, 0.08)' : 'transparent',
                 color: activeSection === item.id ? 'var(--primary)' : 'var(--text-primary)',
               }}
@@ -111,7 +112,7 @@ const Navbar = () => {
                 primary={item.label}
                 primaryTypographyProps={{
                   fontWeight: activeSection === item.id ? 800 : 600,
-                  fontSize: '1.1rem'
+                  fontSize: '1rem'
                 }}
               />
             </ListItemButton>
@@ -123,7 +124,7 @@ const Navbar = () => {
         fullWidth
         startIcon={<PhoneIcon />}
         href="tel:+919456644264"
-        sx={{ mt: 2, py: 2, borderRadius: 3, fontWeight: 900 }}
+        sx={{ mt: 2, py: 1.5, borderRadius: 2.5, fontWeight: 900, fontSize: '0.9rem' }}
       >
         Call direct
       </Button>
@@ -144,16 +145,21 @@ const Navbar = () => {
           zIndex: (theme) => theme.zIndex.drawer + 2,
         }}
       >
-        <Container maxWidth="xl">
-          <Toolbar sx={{ justifyContent: 'space-between', height: scrolled ? 75 : 100, transition: 'all 0.5s ease' }}>
+        <Container maxWidth="xl" sx={{ px: { xs: 2, md: 3 } }}>
+          <Toolbar sx={{
+            justifyContent: 'space-between',
+            height: { xs: scrolled ? 60 : 80, md: scrolled ? 75 : 100 },
+            transition: 'all 0.5s ease',
+            minHeight: { xs: '60px !important', md: '75px' }
+          }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, cursor: 'pointer' }} onClick={() => scrollTo('home')}>
               <Box
                 component="img"
                 src={process.env.PUBLIC_URL + '/logo1.png'}
                 alt="PAUSH Group Logo"
                 sx={{
-                  width: 52,
-                  height: 52,
+                  width: { xs: 40, md: 52 },
+                  height: { xs: 40, md: 52 },
                   objectFit: 'contain',
                   filter: 'drop-shadow(0 4px 12px rgba(0, 71, 171, 0.25))',
                 }}

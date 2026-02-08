@@ -230,7 +230,7 @@ const RealEstateListings = ({ open, onClose }) => {
           </IconButton>
         </DialogTitle>
 
-        <DialogContent sx={{ p: 4 }}>
+        <DialogContent sx={{ p: { xs: 2, md: 4 }, pt: { xs: 1.5, md: 4 } }}>
           {loading ? (
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', py: 10 }}>
               <CircularProgress />
@@ -238,7 +238,7 @@ const RealEstateListings = ({ open, onClose }) => {
           ) : error ? (
             <Alert severity="warning" sx={{ borderRadius: 2 }}>{error}</Alert>
           ) : (
-            <Grid container spacing={4}>
+            <Grid container spacing={{ xs: 2.5, md: 4 }}>
               {listings.map((listing, index) => (
                 <Grid item xs={12} sm={6} md={4} key={listing.id || index}>
                   <motion.div
@@ -248,19 +248,19 @@ const RealEstateListings = ({ open, onClose }) => {
                   >
                     <Card
                       sx={{
-                        borderRadius: 4,
+                        borderRadius: { xs: 3, md: 4 },
                         overflow: 'hidden',
-                        border: '1px solid rgba(0, 0, 0, 0.05)',
+                        border: '1px solid rgba(0, 0, 0, 0.04)',
                         boxShadow: 'var(--shadow-soft)',
                         transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                         '&:hover': {
-                          transform: 'translateY(-10px)',
+                          transform: { md: 'translateY(-10px)' },
                           boxShadow: '0 20px 40px rgba(0, 71, 171, 0.1)',
                           '& .listing-img': { transform: 'scale(1.1)' },
                         },
                       }}
                     >
-                      <Box sx={{ position: 'relative', height: 240, overflow: 'hidden' }}>
+                      <Box sx={{ position: 'relative', height: { xs: 200, md: 240 }, overflow: 'hidden' }}>
                         <CardMedia
                           component="img"
                           image={listing.image}

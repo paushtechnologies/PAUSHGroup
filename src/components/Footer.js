@@ -65,8 +65,8 @@ const Footer = () => {
         backgroundColor: '#f8fafc',
         position: 'relative',
         overflow: 'hidden',
-        pt: { xs: 8, md: 12 },
-        pb: 4,
+        pt: { xs: 4, md: 12 },
+        pb: { xs: 3, md: 4 },
       }}
     >
       {/* 🌟 VIBRANT LIGHT MOTION BACKGROUND */}
@@ -91,7 +91,7 @@ const Footer = () => {
       </Box>
 
       <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 10 }}>
-        <Grid container spacing={8}>
+        <Grid container spacing={{ xs: 3, lg: 8 }}>
           {/* Main Brand Section */}
           <Grid item xs={12} lg={5}>
             <motion.div
@@ -99,43 +99,103 @@ const Footer = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 4 }}>
-                <Typography
-                  variant="h2"
-                  sx={{
-                    fontWeight: 950,
-                    color: 'var(--primary)',
-                    letterSpacing: '-0.06em',
-                    fontSize: { xs: '3rem', md: '5rem' }
-                  }}
-                >
-                  PAUSH Group
-                </Typography>
+              <Box sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: { xs: 'center', lg: 'flex-start' },
+                mb: { xs: 2.2, md: 5 }
+              }}>
                 <Box sx={{
-                  width: 12, height: 12,
-                  borderRadius: '50%',
-                  background: 'var(--accent)',
-                  alignSelf: 'flex-end',
-                  mb: 2.5
-                }} />
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: { xs: 1, md: 1.5 },
+                  mb: 1
+                }}>
+                  <Typography
+                    variant="h2"
+                    sx={{
+                      fontWeight: 950,
+                      color: 'var(--primary)',
+                      letterSpacing: '-0.06em',
+                      fontSize: { xs: '2rem', md: '5rem' },
+                      textAlign: { xs: 'center', lg: 'left' }
+                    }}
+                  >
+                    PAUSH Group
+                  </Typography>
+                  <Box sx={{
+                    width: { xs: 6, md: 12 },
+                    height: { xs: 6, md: 12 },
+                    borderRadius: '50%',
+                    background: 'var(--accent)',
+                    alignSelf: 'center',
+                    mt: { xs: 0.5, md: 2.5 }
+                  }} />
+                </Box>
+
+                {/* 🟢 LIVE STATUS INDICATOR */}
+                <Box sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 1,
+                  px: 1.2,
+                  py: 0.4,
+                  borderRadius: 10,
+                  backgroundColor: 'rgba(34, 197, 94, 0.08)',
+                  border: '1px solid rgba(34, 197, 94, 0.15)',
+                  width: 'fit-content'
+                }}>
+                  <Box sx={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: '50%',
+                    backgroundColor: '#22c55e',
+                    boxShadow: '0 0 8px #22c55e',
+                    animation: 'pulse-green 2s infinite'
+                  }} />
+                  <Typography variant="caption" sx={{ fontWeight: 900, color: '#15803d', letterSpacing: '0.05em', fontSize: { xs: '0.55rem', md: '0.7rem' } }}>
+                    SYSTEMS ACTIVE • GLOBAL SUPPORT ONLINE
+                  </Typography>
+                </Box>
+                <style>
+                  {`
+                    @keyframes pulse-green {
+                      0% { transform: scale(0.95); opacity: 0.8; }
+                      50% { transform: scale(1.1); opacity: 1; }
+                      100% { transform: scale(0.95); opacity: 0.8; }
+                    }
+                  `}
+                </style>
               </Box>
 
               <Typography
                 variant="h5"
                 sx={{
-                  color: '#0f172a', // Maximum high-contrast visibility
-                  lineHeight: 1.7,
-                  mb: 4,
-                  maxWidth: 500,
+                  color: '#0f172a',
+                  lineHeight: { xs: 1.4, md: 1.7 },
+                  mb: { xs: 5, md: 4 },
+                  maxWidth: { xs: '100%', lg: 500 },
                   fontWeight: 600,
-                  fontSize: '1.25rem'
+                  fontSize: { xs: '1rem', md: '1.25rem' },
+                  textAlign: { xs: 'center', lg: 'left' },
+                  opacity: 0.9
                 }}
               >
                 Practical innovation across verticals.
                 Supporting your ecosystem with integrity and foresight.
               </Typography>
 
-              <Stack direction={{ xs: 'column', sm: 'row' }} spacing={3}>
+              <Stack
+                direction="row"
+                spacing={{ xs: 1.2, sm: 3 }}
+                sx={{
+                  alignItems: 'center',
+                  justifyContent: { xs: 'center', lg: 'flex-start' },
+                  flexWrap: 'wrap',
+                  gap: { xs: 1, sm: 0 }
+                }}
+              >
                 <Button
                   variant="contained"
                   size="large"
@@ -144,11 +204,13 @@ const Footer = () => {
                   sx={{
                     background: 'var(--gradient-ocean)',
                     color: 'white',
-                    px: 6,
-                    py: 2.2,
-                    borderRadius: 4,
+                    px: { xs: 3, md: 6 },
+                    py: { xs: 1.2, md: 2.2 },
+                    borderRadius: 3,
                     fontWeight: 900,
-                    boxShadow: '0 15px 30px rgba(0, 71, 171, 0.2)'
+                    boxShadow: '0 12px 24px rgba(0, 71, 171, 0.15)',
+                    fontSize: { xs: '0.8rem', md: '1rem' },
+                    width: { xs: 'fit-content', sm: 'auto' }
                   }}
                 >
                   Direct Call
@@ -162,11 +224,13 @@ const Footer = () => {
                   sx={{
                     background: 'linear-gradient(135deg, #128C7E 0%, #25D366 100%)',
                     color: 'white',
-                    px: 6,
-                    py: 2.2,
-                    borderRadius: 4,
+                    px: { xs: 3, md: 6 },
+                    py: { xs: 1.2, md: 2.2 },
+                    borderRadius: 3,
                     fontWeight: 900,
-                    boxShadow: '0 15px 30px rgba(37, 211, 102, 0.2)',
+                    boxShadow: '0 12px 24px rgba(37, 211, 102, 0.15)',
+                    fontSize: { xs: '0.8rem', md: '1rem' },
+                    width: { xs: 'fit-content', sm: 'auto' },
                     transition: 'all 0.4s ease',
                     border: 'none',
                     '&:hover': {
@@ -184,24 +248,24 @@ const Footer = () => {
 
           {/* Links Section */}
           <Grid item xs={12} lg={7}>
-            <Grid container spacing={6}>
-              <Grid item xs={12} sm={4}>
-                <Typography variant="h6" sx={{ fontWeight: 950, mb: 4, color: 'var(--text-primary)', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.15em' }}>
+            <Grid container spacing={{ xs: 3, md: 6 }}>
+              <Grid item xs={6} sm={4} sx={{ textAlign: { xs: 'center', sm: 'left' } }}>
+                <Typography variant="h6" sx={{ fontWeight: 950, mb: { xs: 1.5, md: 4 }, color: 'var(--text-primary)', fontSize: { xs: '0.65rem', md: '0.85rem' }, textTransform: 'uppercase', letterSpacing: '0.15em' }}>
                   Verticals
                 </Typography>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 1, md: 2.5 } }}>
                   {businessLinks.map((link) => (
                     <Link
                       key={link.name}
                       href={link.href}
                       onClick={(e) => { e.preventDefault(); scrollToSection(link.href); }}
                       sx={{
-                        color: '#0f172a', // Maximum visibility
+                        color: '#0f172a',
                         textDecoration: 'none',
-                        transition: '0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                        transition: '0.3s ease',
                         fontWeight: 700,
-                        fontSize: '1.05rem',
-                        '&:hover': { color: 'var(--primary)', transform: 'translateX(10px)' }
+                        fontSize: { xs: '0.8rem', md: '1.05rem' },
+                        '&:hover': { color: 'var(--primary)', transform: 'translateX(5px)' }
                       }}
                     >
                       {link.name}
@@ -210,23 +274,23 @@ const Footer = () => {
                 </Box>
               </Grid>
 
-              <Grid item xs={12} sm={4}>
-                <Typography variant="h6" sx={{ fontWeight: 950, mb: 4, color: 'var(--text-primary)', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.15em' }}>
+              <Grid item xs={6} sm={4} sx={{ textAlign: { xs: 'center', sm: 'left' } }}>
+                <Typography variant="h6" sx={{ fontWeight: 950, mb: { xs: 1.5, md: 4 }, color: 'var(--text-primary)', fontSize: { xs: '0.65rem', md: '0.85rem' }, textTransform: 'uppercase', letterSpacing: '0.15em' }}>
                   Navigation
                 </Typography>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 1, md: 2.5 } }}>
                   {quickLinks.map((link) => (
                     <Link
                       key={link.name}
                       href={link.href}
                       onClick={(e) => { e.preventDefault(); scrollToSection(link.href); }}
                       sx={{
-                        color: '#0f172a', // Maximum visibility
+                        color: '#0f172a',
                         textDecoration: 'none',
-                        transition: '0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                        transition: '0.3s ease',
                         fontWeight: 700,
-                        fontSize: '1.05rem',
-                        '&:hover': { color: 'var(--primary)', transform: 'translateX(10px)' }
+                        fontSize: { xs: '0.8rem', md: '1.05rem' },
+                        '&:hover': { color: 'var(--primary)', transform: 'translateX(5px)' }
                       }}
                     >
                       {link.name}
@@ -235,44 +299,47 @@ const Footer = () => {
                 </Box>
               </Grid>
 
-              <Grid item xs={12} sm={4}>
-                <Typography variant="h6" sx={{ fontWeight: 950, mb: 4, color: 'var(--text-primary)', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.15em' }}>
+              <Grid item xs={12} sm={4} sx={{ textAlign: 'left' }}>
+                <Typography variant="h6" sx={{ fontWeight: 950, mb: { xs: 1.5, md: 4 }, color: 'var(--text-primary)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.15em' }}>
                   Headquarters
                 </Typography>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                  <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-                    <LocationOn sx={{ color: 'var(--primary)', fontSize: 24, opacity: 0.9 }} />
-                    <Typography variant="body1" sx={{ fontWeight: 700, color: '#0f172a', lineHeight: 1.6 }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 2, md: 4 }, alignItems: 'flex-start' }}>
+                  <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start', justifyContent: 'flex-start' }}>
+                    <LocationOn sx={{ color: 'var(--primary)', fontSize: { xs: 20, md: 24 }, mt: 0.5 }} />
+                    <Typography variant="body1" sx={{ fontWeight: 700, color: '#0f172a', lineHeight: 1.4, fontSize: { xs: '0.8rem', md: '1rem' }, textAlign: 'left' }}>
                       Office 509, Infinity Plaza,<br />
-                      Sapphire Street, NeoTech Hub, Pune – 414141<br />
+                      Sapphire Street, NeoTech Hub, Pune – 414141
                     </Typography>
                   </Box>
-                  <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-                    <Email sx={{ color: 'var(--primary)', fontSize: 24, opacity: 0.9 }} />
-                    <Typography variant="body1" sx={{ fontWeight: 800, color: '#0f172a' }}>
+                  <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', justifyContent: 'flex-start' }}>
+                    <Email sx={{ color: 'var(--primary)', fontSize: { xs: 20, md: 24 } }} />
+                    <Typography variant="body1" sx={{ fontWeight: 800, color: '#0f172a', fontSize: { xs: '0.8rem', md: '1rem' } }}>
                       paushgroup@gmail.com
                     </Typography>
                   </Box>
 
-                  <Stack direction="row" spacing={2}>
+                  <Stack direction="row" spacing={2} justifyContent="flex-start">
                     {[Facebook, Twitter, LinkedIn, Instagram].map((Icon, idx) => (
                       <IconButton
                         key={idx}
                         sx={{
-                          p: 1.5,
+                          p: 1.2,
                           background: 'white',
                           color: 'var(--text-secondary)',
-                          boxShadow: '0 4px 10px rgba(0,0,0,0.05)',
-                          transition: '0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                          boxShadow: '0 10px 25px rgba(0,0,0,0.06)',
+                          transition: 'all 0.5s cubic-bezier(0.23, 1, 0.32, 1)',
                           '&:hover': {
                             background: 'var(--primary)',
                             color: 'white',
-                            transform: 'translateY(-8px) rotate(8deg)',
-                            boxShadow: '0 10px 20px rgba(0, 71, 171, 0.3)'
+                            transform: 'translateY(-12px) scale(1.15) rotate(5deg)',
+                            boxShadow: '0 25px 50px rgba(0, 71, 171, 0.25)',
+                            '& svg': {
+                              filter: 'drop-shadow(0 0 8px rgba(255,255,255,0.6))'
+                            }
                           }
                         }}
                       >
-                        <Icon fontSize="small" />
+                        <Icon sx={{ fontSize: { xs: 18, md: 22 } }} />
                       </IconButton>
                     ))}
                   </Stack>
@@ -282,7 +349,37 @@ const Footer = () => {
           </Grid>
         </Grid>
 
-        <Divider sx={{ my: 6, borderColor: 'rgba(0, 71, 171, 0.12)' }} />
+        {/* 🏢 TRUST BAR / CREDENTIALS STRIP */}
+        {/* <Box sx={{
+          display: { xs: 'none', md: 'flex' },
+          mt: { xs: 6, md: 8 },
+          mb: { xs: 4, md: 5 },
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          gap: { xs: 4, md: 8 },
+          opacity: 0.5,
+          filter: 'grayscale(100%) brightness(0.8)',
+          px: 2
+        }}>
+          {[' STARTUP INDIA VERIFIED', 'ISO 9001:2015', 'MSME REGISTERED', 'GDPR COMPLIANT', 'ZERO DATA LOGGING'].map((text) => (
+            <Typography
+              key={text}
+              variant="caption"
+              sx={{
+                fontWeight: 950,
+                letterSpacing: '0.2em',
+                fontSize: { xs: '0.65rem', md: '0.75rem' },
+                '&:hover': { filter: 'none', opacity: 1, color: 'var(--primary)' },
+                transition: 'all 0.4s ease',
+                cursor: 'default'
+              }}
+            >
+              • {text}
+            </Typography>
+          ))}
+        </Box> */}
+
+        <Divider sx={{ my: { xs: 2.5, md: 6 }, borderColor: 'rgba(0, 71, 171, 0.12)' }} />
 
         <Box
           sx={{
@@ -290,18 +387,18 @@ const Footer = () => {
             flexDirection: { xs: 'column', md: 'row' },
             justifyContent: 'space-between',
             alignItems: 'center',
-            gap: 4,
+            gap: { xs: 2.5, md: 4 },
           }}
         >
-          <Typography variant="body2" sx={{ color: '#475569', fontWeight: 800, letterSpacing: '0.05em' }}>
+          <Typography variant="body2" sx={{ color: '#475569', fontWeight: 800, letterSpacing: '0.05em', textAlign: 'center', fontSize: { xs: '0.65rem', md: '0.8rem' } }}>
             © {currentYear} PAUSH GROUP. BUILT FOR THE FUTURE.
           </Typography>
 
-          <Box sx={{ display: 'flex', gap: 6 }}>
-            <Link href="#" sx={{ color: '#475569', textDecoration: 'none', fontSize: '0.8rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', '&:hover': { color: 'var(--primary)' } }}>
+          <Box sx={{ display: 'flex', gap: { xs: 2.5, md: 6 }, justifyContent: 'center' }}>
+            <Link href="#" sx={{ color: '#475569', textDecoration: 'none', fontSize: { xs: '0.6rem', md: '0.8rem' }, fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', '&:hover': { color: 'var(--primary)' } }}>
               Compliance
             </Link>
-            <Link href="#" sx={{ color: '#475569', textDecoration: 'none', fontSize: '0.8rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', '&:hover': { color: 'var(--primary)' } }}>
+            <Link href="#" sx={{ color: '#475569', textDecoration: 'none', fontSize: { xs: '0.6rem', md: '0.8rem' }, fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', '&:hover': { color: 'var(--primary)' } }}>
               Data Protocol
             </Link>
           </Box>

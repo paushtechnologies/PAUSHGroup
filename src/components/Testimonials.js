@@ -87,6 +87,76 @@ const testimonials = [
         avatar: 'ER',
         rating: 5,
     },
+    {
+        name: 'Harish Rao',
+        role: 'Logistics Head, Manufacturing',
+        text: "Our experience with Swift Logistics for Full Truck Load transport was seamless. The real-time tracking and professional handling of our industrial goods were impressive.",
+        avatar: 'HR',
+        rating: 5,
+    },
+    {
+        name: 'Sunita Williams',
+        role: 'Homeowner, Delhi',
+        text: "Transforming our villa into a luxury residency was a dream come true with PAUSH Interiors. Their space planning and premium finishes are truly world-class.",
+        avatar: 'SW',
+        rating: 5,
+    },
+    {
+        name: 'Dr. Vivek Oberoi',
+        role: 'Private Investor',
+        text: "The Portfolio Health Check at Equity Guidance revealed critical gaps in my strategy. I'm now much more confident in my investment decisions.",
+        avatar: 'VO',
+        rating: 5,
+    },
+    {
+        name: 'Tech Park Developers',
+        role: 'Commercial Project',
+        text: "PAUSH Realty helped us secure a prime commercial spot in the city. Their deep knowledge of local zoning and land laws saved us weeks of due diligence.",
+        avatar: 'TP',
+        rating: 5,
+    },
+    {
+        name: 'FoodGo Services',
+        role: 'App Development Client',
+        text: "The mobile delivery app built by PAUSH Technologies has significantly improved our customer engagement. The UI is sleek and the performance is liquid smooth.",
+        avatar: 'FG',
+        rating: 5,
+    },
+    {
+        name: 'Corporate Solutions Inc.',
+        role: 'Relocation Client',
+        text: "Moving our entire corporate office across states seemed daunting, but Swift Logistics made it effortless. Not a single piece of equipment was damaged.",
+        avatar: 'CS',
+        rating: 5,
+    },
+    {
+        name: 'Brew & Bake Cafe',
+        role: 'Hospitality Partner',
+        text: "We opted for their turnkey interior solution for our new cafe. From electricals to the modular counter, the execution was flawless and on time.",
+        avatar: 'BB',
+        rating: 5,
+    },
+    {
+        name: 'Ananya Bir',
+        role: 'Day Trader',
+        text: "The one-on-one mentorship session provided deep insights into technical indicators. It's rare to find such high-quality guidance in the stock market.",
+        avatar: 'AB',
+        rating: 5,
+    },
+    {
+        name: 'Sharma & Sons',
+        role: 'Property Investment',
+        text: "The land verification report provided by PAUSH Realty was incredibly detailed. It helped us avoid a risky investment and find a clean title property.",
+        avatar: 'SS',
+        rating: 5,
+    },
+    {
+        name: 'SecurePay FinTech',
+        role: 'Blockchain Integration',
+        text: "Their expertise in blockchain integration helped us launch our secure payment gateway ahead of schedule. Truly innovative partners.",
+        avatar: 'SP',
+        rating: 5,
+    },
 ];
 
 const Testimonials = () => {
@@ -94,7 +164,7 @@ const Testimonials = () => {
         <Box
             id="about"
             sx={{
-                py: { xs: 15, md: 25 },
+                py: { xs: 8, md: 25 },
                 backgroundColor: '#fff',
                 overflow: 'hidden',
                 position: 'relative',
@@ -108,35 +178,24 @@ const Testimonials = () => {
                         position: 'absolute',
                         top: '10%',
                         right: '5%',
-                        width: '450px',
-                        height: '450px',
+                        width: { xs: '250px', md: '450px' },
+                        height: { xs: '250px', md: '450px' },
                         background: 'radial-gradient(circle, var(--accent-light) 0%, transparent 70%)',
-                    }}
-                />
-                <Box
-                    className="blob-shape"
-                    sx={{
-                        position: 'absolute',
-                        bottom: '10%',
-                        left: '5%',
-                        width: '450px',
-                        height: '450px',
-                        background: 'radial-gradient(circle, var(--primary-light) 0%, transparent 70%)',
-                        opacity: 0.2
                     }}
                 />
             </Box>
 
             <Container maxWidth="xl">
-                <Box sx={{ mb: 12, textAlign: 'center', position: 'relative', zIndex: 10 }}>
+                <Box sx={{ mb: { xs: 6, md: 12 }, textAlign: 'center', position: 'relative', zIndex: 10 }}>
                     <Typography
                         variant="overline"
                         sx={{
                             color: 'var(--primary)',
                             fontWeight: 950,
                             letterSpacing: '0.4em',
-                            mb: 3,
+                            mb: 2,
                             display: 'block',
+                            fontSize: { xs: '0.65rem', md: '0.75rem' }
                         }}
                     >
                         True Partnerships
@@ -145,7 +204,7 @@ const Testimonials = () => {
                         variant="h2"
                         sx={{
                             fontWeight: 950,
-                            fontSize: { xs: '2.5rem', md: '4.8rem' },
+                            fontSize: { xs: '2.2rem', md: '4.8rem' },
                             letterSpacing: '-0.05em',
                         }}
                     >
@@ -156,18 +215,18 @@ const Testimonials = () => {
                 <Box
                     sx={{
                         display: 'flex',
-                        gap: 4,
+                        gap: { xs: 2.5, md: 4 },
                         pb: 4,
-                        pt: 4,
+                        pt: 2,
                         overflow: 'hidden',
                         position: 'relative',
                     }}
                 >
                     <motion.div
-                        style={{ display: 'flex', gap: '32px' }}
-                        animate={{ x: [0, -3800] }}
+                        style={{ display: 'flex', gap: '24px' }}
+                        animate={{ x: [0, -7500] }}
                         transition={{
-                            duration: 60,
+                            duration: 80,
                             repeat: Infinity,
                             ease: "linear",
                         }}
@@ -176,9 +235,9 @@ const Testimonials = () => {
                             <Box
                                 key={idx}
                                 sx={{
-                                    minWidth: { xs: 320, md: 550 },
-                                    p: 6,
-                                    borderRadius: 10,
+                                    minWidth: { xs: 290, sm: 350, md: 550 },
+                                    p: { xs: 4, md: 6 },
+                                    borderRadius: { xs: 6, md: 10 },
                                     background: 'rgba(255, 255, 255, 0.85)',
                                     backdropFilter: 'blur(20px)',
                                     border: '1px solid rgba(0, 71, 171, 0.08)',
@@ -188,25 +247,22 @@ const Testimonials = () => {
                                     justifyContent: 'space-between',
                                     transition: '0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
                                     '&:hover': {
-                                        transform: 'translateY(-15px)',
+                                        transform: { md: 'translateY(-15px)' },
                                         borderColor: 'var(--primary)',
                                         boxShadow: '0 45px 90px rgba(0, 71, 171, 0.1)',
-                                        '& .avatar-glow': {
-                                            boxShadow: '0 0 30px rgba(0, 71, 171, 0.4)'
-                                        }
                                     }
                                 }}
                             >
                                 <Box>
-                                    <Rating value={item.rating} readOnly sx={{ mb: 4, color: 'var(--primary)', fontSize: '1.2rem' }} />
+                                    <Rating value={item.rating} readOnly sx={{ mb: { xs: 2.5, md: 4 }, color: 'var(--primary)', fontSize: { xs: '1rem', md: '1.2rem' } }} />
                                     <Typography
                                         variant="h5"
                                         sx={{
                                             color: 'var(--text-primary)',
-                                            lineHeight: 1.7,
-                                            mb: 6,
+                                            lineHeight: 1.5,
+                                            mb: { xs: 4, md: 6 },
                                             fontWeight: 500,
-                                            fontSize: '1.35rem',
+                                            fontSize: { xs: '1rem', md: '1.35rem' },
                                             fontStyle: 'italic'
                                         }}
                                     >
@@ -214,26 +270,25 @@ const Testimonials = () => {
                                     </Typography>
                                 </Box>
 
-                                <Stack direction="row" spacing={3} alignItems="center">
+                                <Stack direction="row" spacing={{ xs: 2, md: 3 }} alignItems="center">
                                     <Avatar
                                         className="avatar-glow"
                                         sx={{
-                                            width: 64,
-                                            height: 64,
+                                            width: { xs: 48, md: 64 },
+                                            height: { xs: 48, md: 64 },
                                             background: 'var(--gradient-ocean)',
                                             fontWeight: 950,
-                                            fontSize: '1.2rem',
+                                            fontSize: { xs: '1rem', md: '1.2rem' },
                                             boxShadow: '0 10px 20px rgba(0, 71, 171, 0.15)',
-                                            transition: '0.4s'
                                         }}
                                     >
                                         {item.avatar}
                                     </Avatar>
                                     <Box>
-                                        <Typography variant="h6" sx={{ fontWeight: 950, color: 'var(--text-primary)', mb: 0.5 }}>
+                                        <Typography variant="h6" sx={{ fontWeight: 950, color: 'var(--text-primary)', mb: 0.2, fontSize: { xs: '0.95rem', md: '1.25rem' } }}>
                                             {item.name}
                                         </Typography>
-                                        <Typography variant="body2" sx={{ color: 'var(--primary)', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.12em', fontSize: '0.75rem' }}>
+                                        <Typography variant="body2" sx={{ color: 'var(--primary)', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.12em', fontSize: { xs: '0.65rem', md: '0.75rem' } }}>
                                             {item.role}
                                         </Typography>
                                     </Box>

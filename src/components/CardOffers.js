@@ -168,7 +168,7 @@ const CardOffers = ({ open, onClose }) => {
         </IconButton>
       </DialogTitle>
 
-      <DialogContent sx={{ p: 3 }}>
+      <DialogContent sx={{ p: { xs: 2, md: 3 }, pt: { xs: 1.5, md: 3 } }}>
         {loading ? (
           <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', py: 10 }}>
             <CircularProgress />
@@ -178,7 +178,7 @@ const CardOffers = ({ open, onClose }) => {
             {error}
           </Alert>
         ) : (
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 2.5, md: 3 } }}>
             {offers.map((offer, index) => (
               <motion.div
                 key={offer.id || index}
@@ -188,11 +188,11 @@ const CardOffers = ({ open, onClose }) => {
               >
                 <Box
                   sx={{
-                    p: 3,
-                    borderRadius: 4,
+                    p: { xs: 2.5, md: 3 },
+                    borderRadius: 3.5,
                     background: 'white',
-                    border: '1px solid rgba(0, 71, 171, 0.1)',
-                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.04)',
+                    border: '1px solid rgba(0, 71, 171, 0.08)',
+                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.03)',
                     transition: 'all 0.3s ease',
                     position: 'relative',
                     overflow: 'hidden',
@@ -211,29 +211,31 @@ const CardOffers = ({ open, onClose }) => {
                     }
                   }}
                 >
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: { xs: 1.5, md: 2 } }}>
                     <Box>
-                      <Typography variant="h6" sx={{ fontWeight: 800, color: 'var(--text-primary)', mb: 1 }}>
+                      <Typography variant="h6" sx={{ fontWeight: 800, color: 'var(--text-primary)', mb: 0.5, fontSize: { xs: '1rem', md: '1.25rem' } }}>
                         {offer.title}
                       </Typography>
                       <Chip
                         label={offer.type}
                         size="small"
                         sx={{
-                          backgroundColor: 'rgba(0, 71, 171, 0.05)',
+                          backgroundColor: 'rgba(0, 71, 171, 0.04)',
                           color: 'var(--primary)',
                           fontWeight: 700,
+                          height: 20,
+                          fontSize: '0.65rem'
                         }}
                       />
                     </Box>
                   </Box>
 
                   {offer.features?.length > 0 && (
-                    <Box sx={{ mb: 3 }}>
+                    <Box sx={{ mb: { xs: 2, md: 3 } }}>
                       {offer.features.map((feature, idx) => (
-                        <Box key={idx} sx={{ display: 'flex', gap: 1.5, mb: 1.5 }}>
-                          <Box sx={{ color: 'var(--primary)', fontWeight: 900, mt: -0.2 }}>•</Box>
-                          <Typography variant="body2" sx={{ color: 'var(--text-secondary)', fontWeight: 500 }}>
+                        <Box key={idx} sx={{ display: 'flex', gap: 1.2, mb: 1 }}>
+                          <Box sx={{ color: 'var(--primary)', fontWeight: 900, mt: -0.2, fontSize: '0.9rem' }}>•</Box>
+                          <Typography variant="body2" sx={{ color: 'var(--text-secondary)', fontWeight: 500, fontSize: { xs: '0.85rem', md: '0.875rem' }, lineHeight: 1.4 }}>
                             {feature}
                           </Typography>
                         </Box>

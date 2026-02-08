@@ -148,22 +148,22 @@ ${formData.message}
             </DialogTitle>
 
             <form onSubmit={handleSubmit}>
-                <DialogContent sx={{ p: 3, pt: 0 }}>
-                    <Typography variant="body2" sx={{ mb: 2, color: 'var(--text-secondary)', fontWeight: 500, fontSize: '0.85rem' }}>
+                <DialogContent sx={{ p: { xs: 2.5, md: 3 }, pt: { xs: 1.5, md: 0 } }}>
+                    <Typography variant="body2" sx={{ mb: 2, color: 'var(--text-secondary)', fontWeight: 500, fontSize: '0.8rem' }}>
                         Join the PAUSH Group ecosystem. Share your details below.
                     </Typography>
 
                     <AnimatePresence>
                         {success && (
                             <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
-                                <Alert severity="success" sx={{ mb: 3, borderRadius: 2, fontWeight: 700 }}>
+                                <Alert severity="success" sx={{ mb: 3, borderRadius: 2, fontWeight: 700, fontSize: '0.85rem' }}>
                                     Your request has been sent! Our team will reach out shortly.
                                 </Alert>
                             </motion.div>
                         )}
                     </AnimatePresence>
 
-                    <Grid container spacing={2}>
+                    <Grid container spacing={{ xs: 1.5, md: 2 }}>
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 required

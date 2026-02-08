@@ -77,11 +77,27 @@ html {
   border: 1px solid var(--glass-border);
 }
 
+@keyframes gradient-move {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 .text-gradient {
   background: var(--gradient-ocean);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  background-size: 200% auto;
+  animation: gradient-move 5s ease infinite;
 }
 
 .section-padding {
@@ -227,23 +243,25 @@ html {
   animation: micro-float 10s infinite linear;
 }
 
-/* Premium Button Pulse */
 @keyframes premium-pulse {
   0% {
+    transform: scale(1);
     box-shadow: 0 0 0 0 rgba(0, 71, 171, 0.4);
   }
 
-  70% {
-    box-shadow: 0 0 0 15px rgba(0, 71, 171, 0);
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 0 40px 10px rgba(0, 71, 171, 0.1);
   }
 
   100% {
+    transform: scale(1);
     box-shadow: 0 0 0 0 rgba(0, 71, 171, 0);
   }
 }
 
 .animate-pulse-premium {
-  animation: premium-pulse 2s infinite;
+  animation: premium-pulse 3s infinite ease-in-out;
 }
 
 /* Navbar Tab Gradient */

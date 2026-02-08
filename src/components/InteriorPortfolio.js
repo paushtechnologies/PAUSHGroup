@@ -156,14 +156,14 @@ const InteriorPortfolio = ({ open, onClose }) => {
           </IconButton>
         </DialogTitle>
 
-        <DialogContent sx={{ p: 4 }}>
-          <Box sx={{ mb: 6, textAlign: 'center' }}>
-            <Typography variant="body1" sx={{ color: 'var(--text-secondary)', fontWeight: 600, maxWidth: 600, mx: 'auto' }}>
+        <DialogContent sx={{ p: { xs: 2.5, md: 4 }, pt: { xs: 1.5, md: 4 } }}>
+          <Box sx={{ mb: { xs: 4, md: 6 }, textAlign: 'center' }}>
+            <Typography variant="body1" sx={{ color: 'var(--text-secondary)', fontWeight: 600, maxWidth: 600, mx: 'auto', fontSize: { xs: '0.85rem', md: '1rem' } }}>
               We are currently finalizing project documentation and professional photography.
               Real-world site images will be updated shortly.
             </Typography>
           </Box>
-          <Grid container spacing={4}>
+          <Grid container spacing={{ xs: 2.5, md: 4 }}>
             {portfolioItems.map((item, index) => (
               <Grid item xs={12} sm={6} md={4} key={item.id}>
                 <motion.div
@@ -173,20 +173,20 @@ const InteriorPortfolio = ({ open, onClose }) => {
                 >
                   <Card
                     sx={{
-                      borderRadius: 4,
+                      borderRadius: { xs: 3, md: 4 },
                       overflow: 'hidden',
-                      border: '1px solid rgba(0, 0, 0, 0.05)',
+                      border: '1px solid rgba(0, 0, 0, 0.04)',
                       boxShadow: '0 4px 20px rgba(0, 0, 0, 0.04)',
                       transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
                       '&:hover': {
-                        transform: 'translateY(-10px)',
+                        transform: { md: 'translateY(-10px)' },
                         boxShadow: '0 20px 40px rgba(0, 71, 171, 0.12)',
                         '& .portfolio-overlay': { opacity: 1 },
                         '& .portfolio-image': { transform: 'scale(1.1)' },
                       },
                     }}
                   >
-                    <Box sx={{ position: 'relative', height: 300, overflow: 'hidden' }}>
+                    <Box sx={{ position: 'relative', height: { xs: 220, md: 300 }, overflow: 'hidden' }}>
                       <CardMedia
                         component="img"
                         image={item.image}
@@ -220,9 +220,9 @@ const InteriorPortfolio = ({ open, onClose }) => {
                           sx={{
                             color: 'white',
                             fontWeight: 900,
-                            letterSpacing: '0.2em',
-                            fontSize: '0.9rem',
-                            padding: '8px 20px',
+                            letterSpacing: '0.15em',
+                            fontSize: { xs: '0.75rem', md: '0.9rem' },
+                            padding: { xs: '6px 15px', md: '8px 20px' },
                             border: '2px solid white',
                             backdropFilter: 'blur(5px)',
                             borderRadius: 1,
@@ -245,7 +245,7 @@ const InteriorPortfolio = ({ open, onClose }) => {
                           display: 'flex',
                           flexDirection: 'column',
                           justifyContent: 'flex-end',
-                          p: 3,
+                          p: { xs: 2.5, md: 3 },
                           opacity: 0.9,
                           transition: 'opacity 0.3s ease',
                           zIndex: 3,
@@ -258,10 +258,11 @@ const InteriorPortfolio = ({ open, onClose }) => {
                             backgroundColor: 'white',
                             color: 'var(--primary)',
                             fontWeight: 800,
-                            mb: 1.5,
+                            mb: 1,
                             alignSelf: 'flex-start',
-                            fontSize: '0.7rem',
+                            fontSize: '0.65rem',
                             textTransform: 'uppercase',
+                            height: 20
                           }}
                         />
                         <Typography
@@ -269,14 +270,14 @@ const InteriorPortfolio = ({ open, onClose }) => {
                           sx={{
                             color: 'white',
                             fontWeight: 800,
-                            fontSize: '1.25rem',
+                            fontSize: { xs: '1.05rem', md: '1.25rem' },
                             letterSpacing: '-0.01em',
                             mb: 0.5,
                           }}
                         >
                           {item.title}
                         </Typography>
-                        <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.8)', fontWeight: 500 }}>
+                        <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.8)', fontWeight: 500, fontSize: '0.8rem' }}>
                           {item.location}
                         </Typography>
                       </Box>

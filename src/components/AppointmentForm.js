@@ -28,6 +28,18 @@ const AppointmentForm = ({ open, onClose, type = 'appointment', googleSheetUrl }
     duration: '',
     purpose: '',
     message: '',
+    pickupLocation: '',
+    dropLocation: '',
+    materialType: '',
+    weight: '',
+    // Stock Market specific
+    investmentGoal: '',
+    portfolioSize: '',
+    experienceLevel: '',
+    // Interior specific
+    carpetArea: '',
+    budgetEstimate: '',
+    location: '',
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -55,19 +67,61 @@ const AppointmentForm = ({ open, onClose, type = 'appointment', googleSheetUrl }
 
   const purposeOptions = type === 'appointment'
     ? [
-      'Stock Market Training',
-      'Portfolio Review',
-      'Investment Consultation',
-      'Market Analysis',
-      'Other',
+      'Comprehensive Stock Market Training',
+      'Portfolio Management & Health Check',
+      'Technical & Fundamental Analysis Service',
+      'Wealth Management Consultation',
+      'One-on-One Mentorship',
+      'Other Specialist Request',
     ]
-    : [
-      'Interior Design Consultation',
-      'Space Planning',
-      'Renovation Discussion',
-      'Budget Planning',
-      'Other',
-    ];
+    : type === 'logistics'
+      ? [
+        'Industrial Goods',
+        'Construction Material',
+        'FMCG (Consumer Goods)',
+        'Electronics',
+        'Household/Relocation',
+        'Pharmaceuticals',
+        'Other',
+      ]
+      : [
+        'Luxury Residential Interior',
+        'Commercial Office Space Design',
+        'Single Room / Apartment Makeover',
+        'Modular Kitchen & Wardrobes',
+        'Turnkey Interior Solutions',
+        'Other Interior Request',
+      ];
+
+  const consignmentTypes = [
+    'Full Truck Load (FTL)',
+    'Part Truck Load (PTL)',
+    'Local Distribution',
+    'Long-Haul Transportation',
+    'Parcel/Express',
+  ];
+
+  const experienceLevels = [
+    'Beginner (No prior knowledge)',
+    'Intermediate (Some trading experience)',
+    'Advanced (Active investor/trader)',
+  ];
+
+  const budgetRanges = [
+    'Below 5 Lakhs',
+    '5 - 15 Lakhs',
+    '15 - 30 Lakhs',
+    'Above 30 Lakhs',
+    'Custom / Premium Project',
+  ];
+
+  const portfolioSizes = [
+    'Upto 5 Lakhs',
+    '5 - 25 Lakhs',
+    '25 - 50 Lakhs',
+    '50 Lakhs +',
+    'HNI / Institutional',
+  ];
 
   const handleChange = (e) => {
     setFormData({
@@ -126,7 +180,7 @@ const AppointmentForm = ({ open, onClose, type = 'appointment', googleSheetUrl }
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             timestamp,
-            type: type === 'appointment' ? 'Stock Market Appointment' : 'Interior Design Consultation',
+            type: type === 'appointment' ? 'Stock Market Appointment' : type === 'logistics' ? 'Logistics & Truck Booking' : 'Interior Design Consultation',
             name: formData.name,
             email: formData.email,
             phone: formData.phone,
@@ -135,6 +189,16 @@ const AppointmentForm = ({ open, onClose, type = 'appointment', googleSheetUrl }
             duration: formData.duration || 'N/A',
             purpose: formData.purpose || 'N/A',
             message: formData.message || 'N/A',
+            pickupLocation: formData.pickupLocation || 'N/A',
+            dropLocation: formData.dropLocation || 'N/A',
+            materialType: formData.materialType || 'N/A',
+            weight: formData.weight || 'N/A',
+            investmentGoal: formData.investmentGoal || 'N/A',
+            portfolioSize: formData.portfolioSize || 'N/A',
+            experienceLevel: formData.experienceLevel || 'N/A',
+            carpetArea: formData.carpetArea || 'N/A',
+            budgetEstimate: formData.budgetEstimate || 'N/A',
+            location: formData.location || 'N/A',
           }),
         }).catch(err => console.error('Google Sheet submission failed:', err));
       }
@@ -150,11 +214,21 @@ const AppointmentForm = ({ open, onClose, type = 'appointment', googleSheetUrl }
             from_name: formData.name,
             from_email: formData.email,
             phone: formData.phone,
-            service_type: type === 'appointment' ? 'Equity Guidance' : 'Interior Consultation',
+            service_type: type === 'appointment' ? 'Equity Guidance' : type === 'logistics' ? 'Swift Logistics' : 'Interior Consultation',
             preferred_date: formData.preferredDate,
             preferred_time: formData.preferredTime,
             purpose: formData.purpose || 'N/A',
             message: formData.message || 'N/A',
+            pickup_location: formData.pickupLocation || 'N/A',
+            drop_location: formData.dropLocation || 'N/A',
+            material_type: formData.materialType || 'N/A',
+            weight: formData.weight || 'N/A',
+            investment_goal: formData.investmentGoal || 'N/A',
+            portfolio_size: formData.portfolioSize || 'N/A',
+            experience_level: formData.experienceLevel || 'N/A',
+            carpet_area: formData.carpetArea || 'N/A',
+            budget_estimate: formData.budgetEstimate || 'N/A',
+            location: formData.location || 'N/A',
             to_email: 'paushgroup@gmail.com', // Target email
           });
         } catch (mailErr) {
@@ -172,6 +246,16 @@ const AppointmentForm = ({ open, onClose, type = 'appointment', googleSheetUrl }
         duration: '',
         purpose: '',
         message: '',
+        pickupLocation: '',
+        dropLocation: '',
+        materialType: '',
+        weight: '',
+        investmentGoal: '',
+        portfolioSize: '',
+        experienceLevel: '',
+        carpetArea: '',
+        budgetEstimate: '',
+        location: '',
       });
 
       setTimeout(() => {
@@ -197,6 +281,10 @@ const AppointmentForm = ({ open, onClose, type = 'appointment', googleSheetUrl }
         duration: '',
         purpose: '',
         message: '',
+        pickupLocation: '',
+        dropLocation: '',
+        materialType: '',
+        weight: '',
       });
       setError('');
       setSuccess(false);
@@ -214,7 +302,7 @@ const AppointmentForm = ({ open, onClose, type = 'appointment', googleSheetUrl }
     <Dialog
       open={open}
       onClose={handleClose}
-      maxWidth="sm"
+      maxWidth="md"
       fullWidth
       PaperProps={{
         sx: {
@@ -239,7 +327,7 @@ const AppointmentForm = ({ open, onClose, type = 'appointment', googleSheetUrl }
             color: 'var(--text-primary)',
           }}
         >
-          {type === 'appointment' ? 'Book Appointment' : 'Book Consultation'}
+          {type === 'appointment' ? 'Book Appointment' : type === 'logistics' ? 'Book a Truck' : 'Book Consultation'}
         </Typography>
         <IconButton
           onClick={handleClose}
@@ -274,15 +362,23 @@ const AppointmentForm = ({ open, onClose, type = 'appointment', googleSheetUrl }
       </AnimatePresence>
 
       <form onSubmit={handleSubmit}>
-        <DialogContent sx={{ p: 3, pt: 1.5 }}>
+        <DialogContent sx={{
+          p: { xs: 2.5, md: 3 },
+          pt: { xs: 1.5, md: 1 },
+          maxHeight: '85vh',
+          overflowY: 'auto',
+          msOverflowStyle: 'none',
+          scrollbarWidth: 'none',
+          '&::-webkit-scrollbar': { display: 'none' }
+        }}>
           {error && (
-            <Alert severity="error" sx={{ mb: 3, borderRadius: 2 }}>
+            <Alert severity="error" sx={{ mb: 2, borderRadius: 2, fontSize: '0.85rem' }}>
               {error}
             </Alert>
           )}
 
-          <Grid container spacing={2.5}>
-            <Grid item xs={12}>
+          <Grid container spacing={{ xs: 2, md: 2 }}>
+            <Grid item xs={12} md={6}>
               <TextField
                 required
                 name="name"
@@ -296,7 +392,7 @@ const AppointmentForm = ({ open, onClose, type = 'appointment', googleSheetUrl }
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} md={6}>
               <TextField
                 required
                 name="email"
@@ -310,7 +406,7 @@ const AppointmentForm = ({ open, onClose, type = 'appointment', googleSheetUrl }
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} md={6}>
               <TextField
                 required
                 name="phone"
@@ -325,11 +421,11 @@ const AppointmentForm = ({ open, onClose, type = 'appointment', googleSheetUrl }
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} md={6}>
               <TextField
                 required
                 name="preferredDate"
-                label="Select Date"
+                label={type === 'logistics' ? "Pickup Date" : "Select Date"}
                 type="date"
                 value={formData.preferredDate}
                 onChange={handleChange}
@@ -340,7 +436,7 @@ const AppointmentForm = ({ open, onClose, type = 'appointment', googleSheetUrl }
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} md={6}>
               <TextField
                 required
                 name="preferredTime"
@@ -359,17 +455,175 @@ const AppointmentForm = ({ open, onClose, type = 'appointment', googleSheetUrl }
               </TextField>
             </Grid>
 
+            {type === 'logistics' && (
+              <>
+                <Grid item xs={12} md={6}>
+                  <TextField
+                    required
+                    name="pickupLocation"
+                    label="Pickup Address / City"
+                    placeholder="Enter pickup location"
+                    value={formData.pickupLocation}
+                    onChange={handleChange}
+                    fullWidth
+                    sx={textFieldStyles}
+                  />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <TextField
+                    required
+                    name="dropLocation"
+                    label="Drop Address / City"
+                    placeholder="Enter drop location"
+                    value={formData.dropLocation}
+                    onChange={handleChange}
+                    fullWidth
+                    sx={textFieldStyles}
+                  />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <TextField
+                    required
+                    name="materialType"
+                    label="Material Type"
+                    select
+                    value={formData.materialType}
+                    onChange={handleChange}
+                    fullWidth
+                    sx={textFieldStyles}
+                  >
+                    {purposeOptions.map((opt) => (
+                      <MenuItem key={opt} value={opt}>
+                        {opt}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <TextField
+                    required
+                    name="weight"
+                    label="Approx Weight (approx Kg/Ton)"
+                    placeholder="e.g. 500 Kg or 10 Tons"
+                    value={formData.weight}
+                    onChange={handleChange}
+                    fullWidth
+                    sx={textFieldStyles}
+                  />
+                </Grid>
+              </>
+            )}
+
+            {type === 'appointment' && (
+              <>
+                <Grid item xs={12} md={6}>
+                  <TextField
+                    required
+                    name="experienceLevel"
+                    label="Trading Experience"
+                    select
+                    value={formData.experienceLevel}
+                    onChange={handleChange}
+                    fullWidth
+                    sx={textFieldStyles}
+                  >
+                    {experienceLevels.map((lvl) => (
+                      <MenuItem key={lvl} value={lvl}>
+                        {lvl}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <TextField
+                    required
+                    name="portfolioSize"
+                    label="Portfolio / Capital Size"
+                    select
+                    value={formData.portfolioSize}
+                    onChange={handleChange}
+                    fullWidth
+                    sx={textFieldStyles}
+                  >
+                    {portfolioSizes.map((size) => (
+                      <MenuItem key={size} value={size}>
+                        {size}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    name="investmentGoal"
+                    label="Primary Investment Goal"
+                    placeholder="e.g. Long-term wealth, Regular Income, Learning"
+                    value={formData.investmentGoal}
+                    onChange={handleChange}
+                    fullWidth
+                    sx={textFieldStyles}
+                  />
+                </Grid>
+              </>
+            )}
+
+            {type === 'interior' && (
+              <>
+                <Grid item xs={12} md={6}>
+                  <TextField
+                    required
+                    name="carpetArea"
+                    label="Approx Area (Sq. Ft.)"
+                    placeholder="e.g. 1500 sqft"
+                    value={formData.carpetArea}
+                    onChange={handleChange}
+                    fullWidth
+                    sx={textFieldStyles}
+                  />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <TextField
+                    required
+                    name="location"
+                    label="Project Location"
+                    placeholder="City / Area"
+                    value={formData.location}
+                    onChange={handleChange}
+                    fullWidth
+                    sx={textFieldStyles}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    name="budgetEstimate"
+                    label="Estimated Budget"
+                    select
+                    value={formData.budgetEstimate}
+                    onChange={handleChange}
+                    fullWidth
+                    sx={textFieldStyles}
+                  >
+                    {budgetRanges.map((range) => (
+                      <MenuItem key={range} value={range}>
+                        {range}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
+              </>
+            )}
+
             <Grid item xs={12}>
               <TextField
                 name="purpose"
-                label="Service Type"
+                label={type === 'logistics' ? "Consignment Type" : "Service Type"}
                 select
                 value={formData.purpose}
                 onChange={handleChange}
                 fullWidth
                 sx={textFieldStyles}
               >
-                {purposeOptions.map((purpose) => (
+                {(type === 'logistics' ? consignmentTypes : purposeOptions).map((purpose) => (
                   <MenuItem key={purpose} value={purpose}>
                     {purpose}
                   </MenuItem>
@@ -426,16 +680,27 @@ const AppointmentForm = ({ open, onClose, type = 'appointment', googleSheetUrl }
 
 const textFieldStyles = {
   '& .MuiOutlinedInput-root': {
-    borderRadius: 3,
+    borderRadius: 2.5,
     backgroundColor: '#fff',
     '& fieldset': { borderColor: 'rgba(0, 0, 0, 0.08)' },
     '&:hover fieldset': { borderColor: 'rgba(0, 71, 171, 0.3)' },
     '&.Mui-focused fieldset': { borderColor: 'var(--primary)', borderWidth: 2 },
+    height: { md: 45 },
+    '& input[type="date"]': {
+      paddingTop: { md: '10px' },
+      paddingBottom: { md: '10px' },
+    }
   },
   '& .MuiInputLabel-root': {
     color: 'var(--text-secondary)',
-    fontWeight: 500,
-    '&.Mui-focused': { color: 'var(--primary)' },
+    fontSize: { md: '0.85rem' },
+    transform: { md: 'translate(14px, 11px) scale(1)' },
+    '&.MuiInputLabel-shrink': {
+      transform: { md: 'translate(14px, -8px) scale(0.75)' },
+      backgroundColor: '#fff',
+      padding: '0 8px',
+      marginLeft: '-4px',
+    }
   },
 };
 

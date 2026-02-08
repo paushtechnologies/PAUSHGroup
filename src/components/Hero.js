@@ -44,8 +44,8 @@ const Hero = () => {
         background: 'var(--bg-primary)',
         position: 'relative',
         overflow: 'hidden',
-        pt: { xs: 12, md: 10 },
-        pb: { xs: 8, md: 10 },
+        pt: { xs: 10, md: 10 },
+        pb: { xs: 6, md: 10 },
       }}
     >
       {/* 🌟 HIGHLY NOTICEABLE Animated Background Elements */}
@@ -56,8 +56,8 @@ const Hero = () => {
             position: 'absolute',
             top: '10%',
             right: '-5%',
-            width: '600px',
-            height: '600px',
+            width: { xs: '300px', md: '600px' },
+            height: { xs: '300px', md: '600px' },
             background: 'radial-gradient(circle, rgba(0, 71, 171, 0.4) 0%, transparent 75%)',
           }}
         />
@@ -67,44 +67,60 @@ const Hero = () => {
             position: 'absolute',
             bottom: '10%',
             left: '-5%',
-            width: '700px',
-            height: '700px',
+            width: { xs: '300px', md: '700px' },
+            height: { xs: '300px', md: '700px' },
             background: 'radial-gradient(circle, rgba(32, 178, 170, 0.3) 0%, transparent 75%)',
             animationDelay: '-5s',
           }}
         />
-
-        {/* Floating Particles/Shapes */}
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            animate={{
-              y: [0, -40, 0],
-              x: [0, i % 2 === 0 ? 20 : -20, 0],
-              rotate: [0, 180, 360],
-              opacity: [0.1, 0.3, 0.1]
-            }}
-            transition={{
-              duration: 8 + i * 2,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-            style={{
+        {/* 🌟 INFINITE MOVING GEOMETRIC OBJECTS */}
+        {[...Array(5)].map((_, i) => (
+          <Box
+            key={`shape-${i}`}
+            sx={{
               position: 'absolute',
-              top: `${20 + i * 15}%`,
-              left: `${10 + i * 15}%`,
-              width: i % 2 === 0 ? '40px' : '60px',
-              height: i % 2 === 0 ? '40px' : '60px',
-              border: '2px solid var(--primary)',
-              borderRadius: i % 3 === 0 ? '50%' : '12px',
-              opacity: 0.2
+              top: `${Math.random() * 80 + 10}%`,
+              left: `${Math.random() * 80 + 10}%`,
+              width: { xs: '20px', md: '40px' },
+              height: { xs: '20px', md: '40px' },
+              border: '2px solid',
+              borderColor: i % 2 === 0 ? 'rgba(0, 71, 171, 0.1)' : 'rgba(32, 178, 170, 0.1)',
+              borderRadius: i % 3 === 0 ? '50%' : '8px',
+              animation: `shape-float-${i} ${15 + i * 5}s infinite ease-in-out`,
+              zIndex: 1,
+              '@keyframes shape-float-0': { '0%, 100%': { transform: 'translate(0, 0) rotate(0deg)' }, '50%': { transform: 'translate(100px, -50px) rotate(45deg)' } },
+              '@keyframes shape-float-1': { '0%, 100%': { transform: 'translate(0, 0) rotate(0deg)' }, '50%': { transform: 'translate(-80px, 100px) rotate(-90deg)' } },
+              '@keyframes shape-float-2': { '0%, 100%': { transform: 'translate(0, 0) rotate(0deg)' }, '50%': { transform: 'translate(60px, 80px) rotate(180deg)' } },
+              '@keyframes shape-float-3': { '0%, 100%': { transform: 'translate(0, 0) rotate(0deg)' }, '50%': { transform: 'translate(-120px, -40px) rotate(-45deg)' } },
+              '@keyframes shape-float-4': { '0%, 100%': { transform: 'translate(0, 0) rotate(0deg)' }, '50%': { transform: 'translate(40px, -100px) rotate(90deg)' } },
+              willChange: 'transform'
+            }}
+          />
+        ))}
+
+        {/* 🌟 INFINITE MOVING MICRO-DOTS */}
+        {[...Array(12)].map((_, i) => (
+          <Box
+            key={`dot-${i}`}
+            sx={{
+              position: 'absolute',
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              width: '4px',
+              height: '4px',
+              background: i % 2 === 0 ? 'var(--primary)' : 'var(--accent)',
+              borderRadius: '50%',
+              opacity: 0.25,
+              animation: `micro-float ${10 + Math.random() * 15}s infinite linear`,
+              animationDelay: `-${Math.random() * 10}s`,
+              willChange: 'transform'
             }}
           />
         ))}
       </Box>
 
       <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 10 }}>
-        <Grid container spacing={6} alignItems="center">
+        <Grid container spacing={{ xs: 6, lg: 6 }} alignItems="center">
           <Grid item xs={12} lg={6}>
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -118,16 +134,16 @@ const Hero = () => {
                     alignItems: 'center',
                     gap: 1.5,
                     px: 2,
-                    py: 1,
+                    py: 0.8,
                     background: 'white',
                     borderRadius: 50,
                     width: 'fit-content',
                     boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
-                    mb: 4,
+                    mb: { xs: 2.5, md: 4 },
                   }}
                 >
                   <RocketLaunch sx={{ fontSize: 16, color: 'var(--primary)' }} />
-                  <Typography variant="subtitle2" sx={{ fontWeight: 800, color: 'var(--primary)', letterSpacing: '0.1em', textTransform: 'uppercase', fontSize: '0.75rem' }}>
+                  <Typography variant="subtitle2" sx={{ fontWeight: 800, color: 'var(--primary)', letterSpacing: '0.1em', textTransform: 'uppercase', fontSize: { xs: '0.65rem', md: '0.75rem' } }}>
                     Forward-Thinking Since 2020
                   </Typography>
                 </Box>
@@ -136,10 +152,10 @@ const Hero = () => {
                   variant="h1"
                   sx={{
                     fontWeight: 950,
-                    fontSize: { xs: '3rem', md: '4.5rem', xl: '5.5rem' },
-                    lineHeight: 1.1,
+                    fontSize: { xs: '2.4rem', sm: '3.5rem', md: '4.5rem', xl: '5.5rem' },
+                    lineHeight: { xs: 1.1, md: 1.1 },
                     letterSpacing: '-0.04em',
-                    mb: 2,
+                    mb: { xs: 2, md: 2 },
                   }}
                 >
                   <Typography component="span" sx={{ display: 'none' }}>PAUSH Group: </Typography>
@@ -151,9 +167,9 @@ const Hero = () => {
                   variant="body1"
                   sx={{
                     color: 'var(--text-secondary)',
-                    fontSize: { xs: '1.2rem', md: '1.4rem' },
-                    lineHeight: 1.6,
-                    mb: 6,
+                    fontSize: { xs: '0.95rem', md: '1.4rem' },
+                    lineHeight: 1.5,
+                    mb: { xs: 4, md: 6 },
                     maxWidth: 550,
                     fontWeight: 500
                   }}
@@ -162,19 +178,19 @@ const Hero = () => {
                   Technology, Finance, and Real Estate.
                 </Typography>
 
-                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={3}>
+                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 2, sm: 3 }}>
                   <Button
                     variant="contained"
                     size="large"
                     onClick={() => setPartnershipOpen(true)}
                     sx={{
                       background: 'var(--gradient-ocean)',
-                      px: 5,
-                      py: 2.2,
-                      fontSize: '1.1rem',
+                      px: { xs: 4, md: 5 },
+                      py: { xs: 1.6, md: 2.2 },
+                      fontSize: { xs: '0.95rem', md: '1.1rem' },
                       fontWeight: 900,
-                      borderRadius: 4,
-                      boxShadow: '0 20px 40px rgba(0, 71, 171, 0.25)',
+                      borderRadius: 3,
+                      boxShadow: '0 20px 40px rgba(0, 71, 171, 0.2)',
                     }}
                   >
                     Partner With Us
@@ -182,17 +198,14 @@ const Hero = () => {
                   <Button
                     variant="outlined"
                     size="large"
-                    className="animate-pulse-premium"
-                    component={motion.button}
-                    animate={{ y: [0, -5, 0] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                     onClick={() => document.getElementById('services').scrollIntoView({ behavior: 'smooth' })}
+                    className="animate-pulse-premium"
                     sx={{
-                      px: 5,
-                      py: 2.2,
-                      fontSize: '1.1rem',
+                      px: { xs: 4, md: 5 },
+                      py: { xs: 1.6, md: 2.2 },
+                      fontSize: { xs: '0.95rem', md: '1.1rem' },
                       fontWeight: 800,
-                      borderRadius: 4,
+                      borderRadius: 3,
                       borderWidth: 2,
                       borderColor: 'rgba(0, 71, 171, 0.2)',
                       background: 'rgba(255, 255, 255, 0.5)',
@@ -219,7 +232,7 @@ const Hero = () => {
                     marginTop: '10px',
                     width: '100%',
                     aspectRatio: '1.1/1',
-                    borderRadius: 10,
+                    borderRadius: { xs: 6, md: 10 },
                     overflow: 'hidden',
                     boxShadow: 'var(--shadow-medium)',
                     position: 'relative',
@@ -233,49 +246,55 @@ const Hero = () => {
                     transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
                   />
 
-                  {/* Counter Badges */}
-                  <Box
-                    sx={{
-                      position: 'absolute',
-                      top: '10%',
-                      right: '10%',
-                      p: 3,
-                      background: 'rgba(255,255,255,0.9)',
-                      backdropFilter: 'blur(10px)',
-                      borderRadius: 4,
-                      boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
-                      textAlign: 'center'
-                    }}
+                  {/* Floating Moving Objects (Badges) */}
+                  <motion.div
+                    animate={{ y: [0, -15, 0] }}
+                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                    style={{ position: 'absolute', top: '10%', right: '10%', zIndex: 20 }}
                   >
-                    <Typography variant="h4" sx={{ fontWeight: 950, color: 'var(--primary)' }}>
-                      <Counter value={50} suffix="+" />
-                    </Typography>
-                    <Typography variant="caption" sx={{ fontWeight: 700, opacity: 0.6 }}>ACTIVE PROJECTS</Typography>
-                  </Box>
-                </Box>
+                    <Box
+                      sx={{
+                        p: { xs: 1.5, md: 3 },
+                        background: 'rgba(255,255,255,0.9)',
+                        backdropFilter: 'blur(10px)',
+                        borderRadius: { xs: 2.5, md: 4 },
+                        boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
+                        textAlign: 'center'
+                      }}
+                    >
+                      <Typography variant="h4" sx={{ fontWeight: 950, color: 'var(--primary)', fontSize: { xs: '1.2rem', md: '2.1rem' } }}>
+                        <Counter value={50} suffix="+" />
+                      </Typography>
+                      <Typography variant="caption" sx={{ fontWeight: 700, opacity: 0.6, fontSize: '0.6rem' }}>ACTIVE PROJECTS</Typography>
+                    </Box>
+                  </motion.div>
 
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    bottom: '10%',
-                    left: '10%',
-                    p: 3,
-                    background: 'rgba(255,255,255,0.9)',
-                    backdropFilter: 'blur(10px)',
-                    borderRadius: 4,
-                    boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 2
-                  }}
-                >
-                  <Box sx={{ p: 1, background: 'var(--primary)', borderRadius: 2, color: 'white' }}>
-                    <TrendingUp />
-                  </Box>
-                  <Box>
-                    <Typography variant="h6" sx={{ fontWeight: 900, lineHeight: 1.2 }}>300% Growth</Typography>
-                    <Typography variant="body2" sx={{ color: 'var(--text-secondary)' }}>Client Efficiency</Typography>
-                  </Box>
+                  <motion.div
+                    animate={{ y: [0, 15, 0] }}
+                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                    style={{ position: 'absolute', bottom: '10%', left: '10%', zIndex: 20 }}
+                  >
+                    <Box
+                      sx={{
+                        p: { xs: 1.5, md: 3 },
+                        background: 'rgba(255,255,255,0.9)',
+                        backdropFilter: 'blur(10px)',
+                        borderRadius: { xs: 2.5, md: 4 },
+                        boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: { xs: 1, md: 2 }
+                      }}
+                    >
+                      <Box sx={{ p: { xs: 0.8, md: 1 }, background: 'var(--primary)', borderRadius: 2, color: 'white' }}>
+                        <TrendingUp sx={{ fontSize: { xs: 18, md: 24 } }} />
+                      </Box>
+                      <Box>
+                        <Typography variant="h6" sx={{ fontWeight: 900, lineHeight: 1.2, fontSize: { xs: '0.9rem', md: '1.25rem' } }}>300% Growth</Typography>
+                        <Typography variant="body2" sx={{ color: 'var(--text-secondary)', fontSize: { xs: '0.65rem', md: '0.85rem' } }}>Client Efficiency</Typography>
+                      </Box>
+                    </Box>
+                  </motion.div>
                 </Box>
               </motion.div>
             </Box>
