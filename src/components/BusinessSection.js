@@ -55,7 +55,13 @@ const StickyCard = ({ business, index, handleCardClick, setConsultationOpen, set
   });
 
   // Optimized animation curves - softer spring for a premium "liquid" feel on all devices
-  const springConfig = {
+  // Specialized config for the last card to make its arrival feel more deliberate
+  const springConfig = business.isLast ? {
+    stiffness: 30,
+    damping: 25,
+    mass: 1.5,
+    restDelta: 0.001
+  } : {
     stiffness: 45,
     damping: 20,
     mass: 1,
@@ -66,19 +72,22 @@ const StickyCard = ({ business, index, handleCardClick, setConsultationOpen, set
   const smoothScale = useSpring(useTransform(scrollYProgress, [0, 0.3, 0.6, 0.9], [0.96, 1, 1, 0.8]), springConfig);
   // Opacity: Fades in -> Stays opaque -> Dips slightly to 0.5 as it recedes
   const smoothOpacity = useSpring(useTransform(scrollYProgress, [0, 0.2, 0.7, 0.9], [0, 1, 1, 0.5]), springConfig);
-  const smoothY = useSpring(useTransform(scrollYProgress, [0, 0.3], [80, 0]), springConfig);
+  // Last card starts appearing slightly later to give Swift Logistics more 'breathing room'
+  const smoothY = useSpring(
+    useTransform(scrollYProgress, business.isLast ? [0.1, 0.4] : [0, 0.3], [120, 0]),
+    springConfig
+  );
 
   return (
     <Box
       ref={ref}
-      id={business.anchorId}
       sx={{
         position: 'sticky',
-        // Cumulative top offset for mobile to create a 'stack' effect at the top
-        top: { xs: 60 + (index * 12), md: 100 },
-        // Increased margin creates the 'scroll depth' for the next card to come over
-        // Using 70vh for Desktop and 60vh for Mobile for a tighter but effective exit
-        mb: { xs: '60vh', md: '75vh' },
+        // Cumulative top offset for both mobile and desktop to create a 'stack' effect at the top
+        top: { xs: 75 + (index * 15), md: 100 + (index * 20) },
+        // For the last card, use a standard margin to avoid excess footer gap
+        // Otherwise, use scroll depth for the 'shrink-on-exit' effect
+        mb: business.isLast ? { xs: 8, md: 15 } : { xs: '60vh', md: '80vh' },
         zIndex: index,
         willChange: 'transform, opacity',
       }}
@@ -96,13 +105,15 @@ const StickyCard = ({ business, index, handleCardClick, setConsultationOpen, set
           sx={{
             display: 'flex',
             flexDirection: { xs: 'column', md: 'row' },
-            borderRadius: { xs: 4, md: 10 },
+            borderRadius: { xs: 4, md: 8 },
             overflow: 'hidden',
             background: 'white',
             border: '1px solid rgba(0,0,0,0.03)',
             boxShadow: '0 25px 60px rgba(0, 0, 0, 0.04)',
-            // Optimized minHeight for desktop to fit content + breathing room
-            minHeight: { xs: 520, sm: 580, md: 540 },
+            // Adjusted minHeight and width for a better desktop balance
+            minHeight: { xs: 520, sm: 580, md: 500 },
+            maxWidth: { md: 1150 },
+            mx: 'auto',
             transition: 'box-shadow 0.4s ease, border-color 0.4s ease',
             cursor: 'pointer',
             userSelect: 'none',
@@ -154,10 +165,10 @@ const StickyCard = ({ business, index, handleCardClick, setConsultationOpen, set
 
           <CardContent sx={{
             width: { xs: '100%', md: '55%' },
-            p: { xs: 3, sm: 6 },
-            pt: { md: 6, lg: 8 },
-            px: { md: 6, lg: 8 },
-            pb: { md: 10, lg: 12 }, // Extra breathing room at the bottom
+            p: { xs: 3, sm: 4, md: 5 },
+            pt: { md: 4, lg: 5 },
+            px: { md: 4, lg: 5 },
+            pb: { md: 6, lg: 8 },
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
@@ -168,7 +179,7 @@ const StickyCard = ({ business, index, handleCardClick, setConsultationOpen, set
               <Typography variant="h3" sx={{
                 fontWeight: 950,
                 letterSpacing: '-0.04em',
-                fontSize: { xs: '1.4rem', sm: '1.8rem', md: '2.8rem', lg: '3.4rem' },
+                fontSize: { xs: '1.4rem', sm: '1.8rem', md: '2.5rem', lg: '3.1rem' },
                 color: 'var(--text-primary)'
               }}>
                 {business.title}
@@ -176,7 +187,7 @@ const StickyCard = ({ business, index, handleCardClick, setConsultationOpen, set
               <Typography variant="h4" sx={{
                 fontWeight: 950,
                 color: 'rgba(0,0,0,0.03)',
-                fontSize: { xs: '2.5rem', md: '5.5rem' },
+                fontSize: { xs: '2.5rem', md: '4.5rem' },
                 lineHeight: 0.8,
                 display: { xs: 'none', md: 'block' }
               }}>
@@ -190,7 +201,7 @@ const StickyCard = ({ business, index, handleCardClick, setConsultationOpen, set
                 color: 'var(--text-secondary)',
                 lineHeight: { xs: 1.4, md: 1.6 },
                 mb: { xs: 2, md: 1.5 },
-                fontSize: { xs: '0.85rem', md: '1.25rem' },
+                fontSize: { xs: '0.85rem', md: '1.15rem' },
                 fontWeight: 500,
                 maxWidth: { md: '100%' }
               }}
@@ -297,8 +308,8 @@ const BusinessSection = () => {
       title: 'Digital Solutions',
       icon: <Code sx={{ fontSize: 40 }} />,
       description: 'Personalized technology support for businesses. We build the tools that help you operate smoothly in the digital world.',
-      desktopDescription: 'From custom enterprise tools to comprehensive digital transformation, we bridge the gap between complex technology and your daily operations. Our suite includes end-to-end website support, bespoke software development, and the implementation of robust digital infrastructures designed for global scalability.',
-      services: ['Custom Tools', 'Website Support', 'Digital Setup'],
+      desktopDescription: 'From custom enterprise tools to comprehensive digital transformation, we bridge the gap between technology and your daily operations. Our suite includes end-to-end website support, bespoke software development, and the implementation of robust digital infrastructures designed for global scalability.',
+      services: ['Custom Tools', 'Website Development', 'Digital Setup'],
       image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&q=90',
       available: true,
       actionType: 'link',
@@ -310,7 +321,7 @@ const BusinessSection = () => {
       title: 'Interior Space',
       icon: <DesignServices sx={{ fontSize: 40 }} />,
       description: 'End-to-end interior planning, design, and construction services across North India, delivering high-quality residential and commercial interior solutions through integrated expertise and execution.',
-      desktopDescription: 'We provide complete interior turnkey solutions, managing every stage from initial conceptual architectural planning to final execution and handover. Our focus on high-end residential and commercial projects across North India combines luxury aesthetics with functional engineering, ensuring every vision is delivered with uncompromising quality.',
+      desktopDescription: 'We provide complete interior solutions, managing every stage from initial conceptual architectural planning to final execution. Our experience on residential and commercial projects across North India combines luxury aesthetics with functional engineering, ensuring every vision is delivered with quality.',
       services: ['Planning', 'Handover Support', 'Execution'],
       image: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&q=90',
       available: true,
@@ -402,13 +413,13 @@ const BusinessSection = () => {
       ref={ref}
       id="services"
       sx={{
-        py: { xs: 8, md: 25 },
+        py: { xs: 4, md: 25 },
         backgroundColor: '#fafafa',
         position: 'relative',
       }}
     >
       <Container maxWidth="xl">
-        <Box sx={{ mb: { xs: 8, md: 15 }, textAlign: { xs: 'left', md: 'center' } }}>
+        <Box sx={{ mb: { xs: 5, md: 15 }, textAlign: { xs: 'left', md: 'center' } }}>
           <Typography variant="overline" sx={{ color: 'var(--primary)', fontWeight: 900, letterSpacing: '0.4em', mb: 2, display: 'block', fontSize: { xs: '0.65rem', md: '0.75rem' } }}>
             Our Ecosystem
           </Typography>
@@ -437,14 +448,25 @@ const BusinessSection = () => {
 
         <Box sx={{ display: 'flex', flexDirection: 'column', position: 'relative' }}>
           {businessesWithZones.map((business, index) => (
-            <StickyCard
-              key={business.id}
-              business={business}
-              index={index}
-              handleCardClick={handleCardClick}
-              setConsultationOpen={setConsultationOpen}
-              setInteriorPortfolioOpen={setInteriorPortfolioOpen}
-            />
+            <React.Fragment key={business.id}>
+              {/* Invisible anchor for precise footer navigation */}
+              <div
+                id={business.anchorId}
+                style={{
+                  position: 'relative',
+                  top: '-50px', // Minor offset to land perfectly
+                  height: 0,
+                  visibility: 'hidden'
+                }}
+              />
+              <StickyCard
+                business={business}
+                index={index}
+                handleCardClick={handleCardClick}
+                setConsultationOpen={setConsultationOpen}
+                setInteriorPortfolioOpen={setInteriorPortfolioOpen}
+              />
+            </React.Fragment>
           ))}
         </Box>
       </Container>

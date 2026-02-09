@@ -142,15 +142,15 @@ const Navbar = () => {
           boxShadow: scrolled ? '0 15px 45px rgba(0, 71, 171, 0.08), inset 0 0 0 1px rgba(255, 255, 255, 0.4)' : 'none',
           borderBottom: scrolled ? '1px solid rgba(255, 255, 255, 0.2)' : 'none',
           transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
-          zIndex: (theme) => theme.zIndex.drawer + 2,
+          zIndex: (theme) => theme.zIndex.drawer - 1,
         }}
       >
         <Container maxWidth="xl" sx={{ px: { xs: 2, md: 3 } }}>
           <Toolbar sx={{
             justifyContent: 'space-between',
-            height: { xs: scrolled ? 60 : 80, md: scrolled ? 75 : 100 },
+            height: { xs: scrolled ? 48 : 56, md: scrolled ? 75 : 100 },
             transition: 'all 0.5s ease',
-            minHeight: { xs: '60px !important', md: '75px' }
+            minHeight: { xs: '48px !important', md: '75px' }
           }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, cursor: 'pointer' }} onClick={() => scrollTo('home')}>
               <Box

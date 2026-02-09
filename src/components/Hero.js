@@ -44,8 +44,8 @@ const Hero = () => {
         background: 'var(--bg-primary)',
         position: 'relative',
         overflow: 'hidden',
-        pt: { xs: 10, md: 10 },
-        pb: { xs: 8, md: 10 },
+        pt: { xs: 6, md: 10 },
+        pb: { xs: 6, md: 10 },
       }}
     >
       {/* 🌟 HIGHLY NOTICEABLE Animated Background Elements */}
@@ -139,11 +139,11 @@ const Hero = () => {
                     borderRadius: 50,
                     width: 'fit-content',
                     boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
-                    mb: { xs: 1.5, md: 4 },
+                    mb: { xs: 0, md: 4 },
                   }}
                 >
                   <RocketLaunch sx={{ fontSize: 16, color: 'var(--primary)' }} />
-                  <Typography variant="subtitle2" sx={{ fontWeight: 800, color: 'var(--primary)', letterSpacing: '0.1em', textTransform: 'uppercase', fontSize: { xs: '0.65rem', md: '0.75rem' } }}>
+                  <Typography variant="subtitle2" sx={{ fontWeight: 800, color: 'var(--primary)', letterSpacing: '0.1em', textTransform: 'uppercase', fontSize: { xs: '0.5rem', md: '0.75rem' } }}>
                     Forward-Thinking Since 2020
                   </Typography>
                 </Box>
@@ -169,13 +169,13 @@ const Hero = () => {
                     color: 'var(--text-secondary)',
                     fontSize: { xs: '0.95rem', md: '1.4rem' },
                     lineHeight: 1.5,
-                    mb: { xs: 2, md: 6 },
+                    mb: { xs: 1.5, md: 6 },
                     maxWidth: 550,
                     fontWeight: 500
                   }}
                 >
-                  A dynamic team dedicated to practical innovation across
-                  Technology, Finance, and Real Estate.
+                  A multi-disciplinary ecosystem driving practical innovation across
+                  Technology, Interior Design, Media, Logistics, Finance, and Real Estate.
                 </Typography>
 
                 <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 2, sm: 3 }}>
@@ -269,32 +269,30 @@ const Hero = () => {
                     </Box>
                   </motion.div>
 
-                  <motion.div
-                    animate={{ y: [0, 15, 0] }}
-                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                    style={{ position: 'absolute', bottom: '10%', left: '10%', zIndex: 20 }}
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      bottom: '10%',
+                      left: '10%',
+                      zIndex: 20,
+                      p: { xs: 1.5, md: 3 },
+                      background: 'rgba(255,255,255,0.9)',
+                      backdropFilter: 'blur(10px)',
+                      borderRadius: { xs: 2.5, md: 4 },
+                      boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: { xs: 1, md: 2 }
+                    }}
                   >
-                    <Box
-                      sx={{
-                        p: { xs: 1.5, md: 3 },
-                        background: 'rgba(255,255,255,0.9)',
-                        backdropFilter: 'blur(10px)',
-                        borderRadius: { xs: 2.5, md: 4 },
-                        boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: { xs: 1, md: 2 }
-                      }}
-                    >
-                      <Box sx={{ p: { xs: 0.8, md: 1 }, background: 'var(--primary)', borderRadius: 2, color: 'white' }}>
-                        <TrendingUp sx={{ fontSize: { xs: 18, md: 24 } }} />
-                      </Box>
-                      <Box>
-                        <Typography variant="h6" sx={{ fontWeight: 900, lineHeight: 1.2, fontSize: { xs: '0.9rem', md: '1.25rem' } }}>300% Growth</Typography>
-                        <Typography variant="body2" sx={{ color: 'var(--text-secondary)', fontSize: { xs: '0.65rem', md: '0.85rem' } }}>Client Efficiency</Typography>
-                      </Box>
+                    <Box sx={{ p: { xs: 0.8, md: 1 }, background: 'var(--primary)', borderRadius: 2, color: 'white' }}>
+                      <TrendingUp sx={{ fontSize: { xs: 18, md: 24 } }} />
                     </Box>
-                  </motion.div>
+                    <Box>
+                      <Typography variant="h6" sx={{ fontWeight: 900, lineHeight: 1.2, fontSize: { xs: '0.9rem', md: '1.25rem' } }}>300% Growth</Typography>
+                      <Typography variant="body2" sx={{ color: 'var(--text-secondary)', fontSize: { xs: '0.65rem', md: '0.85rem' } }}>Client Efficiency</Typography>
+                    </Box>
+                  </Box>
                 </Box>
               </motion.div>
             </Box>

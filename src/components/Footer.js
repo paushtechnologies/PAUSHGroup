@@ -26,13 +26,13 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const businessLinks = [
-    { name: 'Digital Support', href: '#digital-solutions' },
-    { name: 'Equity Reviews', href: '#equity-guidance' },
-    { name: 'Verified Land', href: '#verified-realty' },
+    { name: 'Digital Solutions', href: '#digital-solutions' },
     { name: 'Interior Space', href: '#interior-space' },
-    { name: 'Financial Hub', href: '#fintech-advisory' },
+    { name: 'News & Media', href: '#digital-media' },
+    { name: 'Equity Guidance', href: '#equity-guidance' },
+    { name: 'FinTech Advisory', href: '#fintech-advisory' },
     { name: 'Swift Logistics', href: '#swift-logistics' },
-    { name: 'Market Trends', href: '#digital-media' },
+    { name: 'Verified Realty', href: '#verified-realty' },
   ];
 
   const quickLinks = [
@@ -45,7 +45,8 @@ const Footer = () => {
   const scrollToSection = (href) => {
     const el = document.querySelector(href);
     if (el) {
-      const offset = 80;
+      // Use a slightly larger offset to account for our sticky hierarchy (tops start at 100 on md)
+      const offset = href === '#home' ? 0 : 120;
       const elementPosition = el.getBoundingClientRect().top + window.pageYOffset;
       const offsetPosition = elementPosition - offset;
 
@@ -153,7 +154,7 @@ const Footer = () => {
                     boxShadow: '0 0 8px #22c55e',
                     animation: 'pulse-green 2s infinite'
                   }} />
-                  <Typography variant="caption" sx={{ fontWeight: 900, color: '#15803d', letterSpacing: '0.05em', fontSize: { xs: '0.55rem', md: '0.7rem' } }}>
+                  <Typography variant="caption" sx={{ fontWeight: 900, color: '#15803d', letterSpacing: '0.05em', fontSize: { xs: '0.45rem', md: '0.6rem' } }}>
                     SYSTEMS ACTIVE • GLOBAL SUPPORT ONLINE
                   </Typography>
                 </Box>
@@ -324,8 +325,8 @@ const Footer = () => {
                 </Box>
               </Grid>
 
-              <Grid item xs={12} sm={4} sx={{ textAlign: 'left' }}>
-                <Box sx={{ mb: { xs: 1.2, md: 3 }, textAlign: 'left' }}>
+              <Grid item xs={12} sm={4} sx={{ textAlign: { xs: 'center', sm: 'left' } }}>
+                <Box sx={{ mb: { xs: 1.2, md: 3 }, textAlign: { xs: 'center', sm: 'left' } }}>
                   <Typography variant="h6" sx={{
                     fontWeight: 950,
                     color: 'var(--primary)',
@@ -334,29 +335,29 @@ const Footer = () => {
                     letterSpacing: '0.2em',
                     display: 'inline-flex',
                     flexDirection: 'column',
-                    alignItems: 'flex-start',
+                    alignItems: { xs: 'center', sm: 'flex-start' },
                     gap: 0.5
                   }}>
                     Headquarters
                     <Box sx={{ width: '12px', height: '2.5px', background: 'var(--accent)', borderRadius: 2 }} />
                   </Typography>
                 </Box>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.8, md: 4 }, alignItems: 'flex-start' }}>
-                  <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start', justifyContent: 'flex-start' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.8, md: 4 }, alignItems: { xs: 'center', sm: 'flex-start' } }}>
+                  <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start', justifyContent: { xs: 'center', sm: 'flex-start' } }}>
                     <LocationOn sx={{ color: 'var(--primary)', fontSize: { xs: 20, md: 24 }, mt: 0.5 }} />
-                    <Typography variant="body1" sx={{ fontWeight: 700, color: '#0f172a', lineHeight: 1.4, fontSize: { xs: '0.8rem', md: '1rem' }, textAlign: 'left' }}>
+                    <Typography variant="body1" sx={{ fontWeight: 700, color: '#0f172a', lineHeight: 1.4, fontSize: { xs: '0.8rem', md: '1rem' }, textAlign: { xs: 'center', sm: 'left' } }}>
                       Office 509, Infinity Plaza,<br />
-                      Sapphire Street, NeoTech Hub, Pune – 414141
+                      Sapphire Street, Pune
                     </Typography>
                   </Box>
-                  <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', justifyContent: 'flex-start' }}>
+                  <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', justifyContent: { xs: 'center', sm: 'flex-start' } }}>
                     <Email sx={{ color: 'var(--primary)', fontSize: { xs: 20, md: 24 } }} />
                     <Typography variant="body1" sx={{ fontWeight: 800, color: '#0f172a', fontSize: { xs: '0.8rem', md: '1rem' } }}>
                       paushgroup@gmail.com
                     </Typography>
                   </Box>
 
-                  <Stack direction="row" spacing={2} justifyContent="flex-start">
+                  <Stack direction="row" spacing={2} justifyContent={{ xs: 'center', sm: 'flex-start' }}>
                     {[Facebook, Twitter, LinkedIn, Instagram].map((Icon, idx) => (
                       <IconButton
                         key={idx}
