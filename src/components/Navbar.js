@@ -37,7 +37,7 @@ const Navbar = () => {
     };
     window.addEventListener('scroll', handleScroll);
 
-    const sections = ['home', 'services', 'faq', 'impact', 'about', 'contact'];
+    const sections = ['home', 'services', 'faq', 'reviews', 'impact', 'contact'];
     const observerOptions = {
       root: null,
       rootMargin: '-40% 0px -40% 0px',
@@ -69,8 +69,8 @@ const Navbar = () => {
     { label: 'Home', id: 'home' },
     { label: 'Services', id: 'services' },
     { label: 'FAQ', id: 'faq' },
+    { label: 'Reviews', id: 'reviews' },
     { label: 'Impact', id: 'impact' },
-    { label: 'About', id: 'about' },
     { label: 'Contact', id: 'contact' },
   ];
 
@@ -147,21 +147,32 @@ const Navbar = () => {
           zIndex: (theme) => theme.zIndex.drawer - 1,
         }}
       >
-        <Container maxWidth="xl" sx={{ px: { xs: 2, md: 3 } }}>
+        <Container maxWidth="xl" sx={{ px: { xs: 0, md: 3 } }}>
           <Toolbar sx={{
             justifyContent: 'space-between',
-            height: { xs: scrolled ? 48 : 56, md: scrolled ? 75 : 100 },
+            height: { xs: scrolled ? 60 : 75, md: scrolled ? 75 : 100 },
             transition: 'all 0.5s ease',
-            minHeight: { xs: '48px !important', md: '75px' }
+            minHeight: { xs: '60px !important', md: '75px' }
           }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, cursor: 'pointer' }} onClick={() => scrollTo('home')}>
+            <Box sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1.5,
+              cursor: 'pointer',
+              background: { xs: scrolled ? 'transparent' : 'rgba(255,255,255,0.3)', md: 'transparent' },
+              p: { xs: 0.8, md: 0 },
+              px: { xs: 1.5, md: 0 },
+              borderRadius: 50,
+              backdropFilter: { xs: scrolled ? 'none' : 'blur(5px)', md: 'none' },
+              transition: 'all 0.4s ease'
+            }} onClick={() => scrollTo('home')}>
               <Box
                 component="img"
                 src={process.env.PUBLIC_URL + '/logo1.png'}
                 alt="PAUSH Group Logo"
                 sx={{
-                  width: { xs: 40, md: 52 },
-                  height: { xs: 40, md: 52 },
+                  width: { xs: 46, md: 52 },
+                  height: { xs: 46, md: 52 },
                   objectFit: 'contain',
                   filter: 'drop-shadow(0 4px 12px rgba(0, 71, 171, 0.25))',
                 }}

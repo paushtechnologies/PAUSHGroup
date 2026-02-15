@@ -52,7 +52,7 @@ const Footer = () => {
     { name: 'Services', href: '#services' },
     { name: 'Impact', href: '#impact' },
     { name: 'FAQ', href: '#faq' },
-    { name: 'About', href: '#about' },
+    { name: 'Reviews', href: '#reviews' },
   ];
 
   const scrollToSection = (href) => {
@@ -73,7 +73,7 @@ const Footer = () => {
         backgroundColor: '#cbd5e1', // Match the new deeper background
         position: 'relative',
         overflow: 'hidden',
-        pt: { xs: 6, md: 0 },
+        pt: { xs: 0, md: 0 },
         pb: { xs: 2, md: 4 },
       }}
     >
@@ -159,7 +159,7 @@ const Footer = () => {
         `}
       </style>
 
-      <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 10, pt: { xs: 12, md: 18 } }}>
+      <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 10, pt: { xs: 10, md: 18 } }}>
         <Grid container spacing={{ xs: 2, lg: 8 }}>
           {/* Main Brand Section */}
           <Grid item xs={12} lg={5}>
@@ -431,7 +431,7 @@ const Footer = () => {
                       <IconButton
                         key={idx}
                         sx={{
-                          p: 1.2,
+                          p: { xs: 0.5, md: 1.2 },
                           background: 'white',
                           color: 'var(--text-secondary)',
                           boxShadow: '0 10px 25px rgba(0,0,0,0.06)',
@@ -624,14 +624,15 @@ const Footer = () => {
             flexDirection: { xs: 'column', md: 'row' },
             justifyContent: 'space-between',
             alignItems: 'center',
+            mt: { xs: 2, md: 0 },
             gap: { xs: 0.8, md: 4 },
           }}
         >
-          <Typography variant="body2" sx={{ color: '#475569', fontWeight: 800, letterSpacing: '0.05em', textAlign: 'center', fontSize: { xs: '0.65rem', md: '0.8rem' } }}>
+          <Typography variant="body2" sx={{ color: '#475569', fontWeight: 800, letterSpacing: '0.05em', textAlign: 'center', fontSize: { xs: '0.5rem', md: '0.8rem' } }}>
             © 2024 PAUSH GROUP. MADE WITH PRECISION
           </Typography>
 
-          <Box sx={{ display: 'flex', gap: { xs: 2.5, md: 6 }, justifyContent: 'center' }}>
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: { xs: 2.5, md: 6 }, justifyContent: 'center' }}>
             <Link href="#" sx={{ color: '#475569', textDecoration: 'none', fontSize: { xs: '0.6rem', md: '0.8rem' }, fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', '&:hover': { color: 'var(--primary)' } }}>
               Compliance
             </Link>

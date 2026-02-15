@@ -87,7 +87,7 @@ const StickyCard = ({ business, index, handleCardClick, setConsultationOpen, set
         top: { xs: 75 + (index * 15), md: 100 + (index * 20) },
         // For the last card, use a standard margin to avoid excess footer gap
         // Otherwise, use scroll depth for the 'shrink-on-exit' effect
-        mb: business.isLast ? { xs: 8, md: 15 } : { xs: '60vh', md: '80vh' },
+        mb: business.isLast ? { xs: 2, md: 4 } : { xs: '60vh', md: '80vh' },
         zIndex: index,
         willChange: 'transform, opacity',
       }}
@@ -413,7 +413,7 @@ const BusinessSection = () => {
       ref={ref}
       id="services"
       sx={{
-        py: { xs: 4, md: 25 },
+        py: { xs: 4, md: 10 },
         backgroundColor: '#fafafa',
         position: 'relative',
       }}

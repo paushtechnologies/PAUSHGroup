@@ -45,7 +45,8 @@ const FAQ = () => {
         <Box
             id="faq"
             sx={{
-                py: { xs: 10, md: 20 },
+                pt: { xs: 4, md: 8 },
+                pb: { xs: 6, md: 15 },
                 backgroundColor: 'var(--bg-primary)',
                 position: 'relative',
                 overflow: 'hidden',
@@ -114,17 +115,17 @@ const FAQ = () => {
                                         </Box>
                                     }
                                     sx={{
-                                        px: 4,
-                                        py: 1,
+                                        px: { xs: 2.5, md: 4 },
+                                        py: { xs: 0.5, md: 1 },
                                         '& .MuiAccordionSummary-content': {
-                                            my: 2
+                                            my: { xs: 1.5, md: 2 }
                                         }
                                     }}
                                 >
                                     <Typography
                                         sx={{
                                             fontWeight: 700,
-                                            fontSize: '1.1rem',
+                                            fontSize: { xs: '0.95rem', md: '1.1rem' },
                                             color: expanded === `panel${index}` ? 'var(--primary)' : 'var(--text-primary)',
                                             transition: 'color 0.3s'
                                         }}
@@ -132,12 +133,12 @@ const FAQ = () => {
                                         {item.question}
                                     </Typography>
                                 </AccordionSummary>
-                                <AccordionDetails sx={{ px: 4, pb: 4, pt: 0 }}>
+                                <AccordionDetails sx={{ px: { xs: 2.5, md: 4 }, pb: { xs: 3, md: 4 }, pt: 0 }}>
                                     <Typography
                                         sx={{
                                             color: 'var(--text-secondary)',
-                                            lineHeight: 1.8,
-                                            fontSize: '1.05rem'
+                                            lineHeight: 1.7,
+                                            fontSize: { xs: '0.85rem', md: '1.05rem' }
                                         }}
                                     >
                                         {item.answer}

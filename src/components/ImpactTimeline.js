@@ -96,23 +96,22 @@ const ImpactTimeline = () => {
                 </Box>
 
                 <Box sx={{ position: 'relative' }}>
-                    {/* Vertical Line */}
-                    {!isMobile && (
-                        <Box
-                            sx={{
-                                position: 'absolute',
-                                left: '50%',
-                                top: 0,
-                                bottom: 0,
-                                width: '2px',
-                                background: 'linear-gradient(to bottom, transparent, rgba(0, 71, 171, 0.1) 10%, rgba(0, 71, 171, 0.1) 90%, transparent)',
-                                transform: 'translateX(-50%)',
-                            }}
-                        />
-                    )}
+                    {/* Vertical Anchor Line */}
+                    <Box
+                        sx={{
+                            position: 'absolute',
+                            left: { xs: '31px', md: '50%' },
+                            top: 0,
+                            bottom: 0,
+                            width: '2px',
+                            background: 'linear-gradient(to bottom, transparent, rgba(0, 71, 171, 0.1) 5%, rgba(0, 71, 171, 0.1) 95%, transparent)',
+                            transform: { xs: 'none', md: 'translateX(-50%)' },
+                            zIndex: 1
+                        }}
+                    />
 
                     {timelineData.map((item, index) => (
-                        <Grid container spacing={4} key={index} sx={{ mb: { xs: 6, md: 10 }, position: 'relative' }}>
+                        <Grid container spacing={{ xs: 2, md: 4 }} key={index} sx={{ mb: { xs: 8, md: 10 }, position: 'relative', zIndex: 2 }}>
                             {/* Year Label - Desktop */}
                             {!isMobile && index % 2 === 0 && (
                                 <Grid item md={5} sx={{ textAlign: 'right', display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
@@ -132,10 +131,10 @@ const ImpactTimeline = () => {
                             <Box
                                 sx={{
                                     position: 'absolute',
-                                    left: { xs: '20px', md: '50%' },
-                                    top: '50%',
-                                    transform: 'translate(-50%, -50%)',
-                                    zIndex: 2,
+                                    left: { xs: '32px', md: '50%' },
+                                    top: { xs: '0', md: '50%' },
+                                    transform: { xs: 'translateX(-50%)', md: 'translate(-50%, -50%)' },
+                                    zIndex: 3,
                                 }}
                             >
                                 <motion.div
@@ -146,8 +145,8 @@ const ImpactTimeline = () => {
                                 >
                                     <Box
                                         sx={{
-                                            width: 50,
-                                            height: 50,
+                                            width: { xs: 40, md: 50 },
+                                            height: { xs: 40, md: 50 },
                                             borderRadius: '50%',
                                             background: 'white',
                                             border: `4px solid ${item.color}`,
@@ -158,34 +157,36 @@ const ImpactTimeline = () => {
                                             boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
                                         }}
                                     >
-                                        {item.icon}
+                                        {React.cloneElement(item.icon, { fontSize: isMobile ? 'small' : 'medium' })}
                                     </Box>
                                 </motion.div>
                             </Box>
 
-                            {/* Card - Right Side or Full Width on Mobile */}
+                            {/* Card Content Section */}
                             <Grid
                                 item
                                 xs={12}
                                 md={5}
                                 sx={{
-                                    ml: { xs: 6, md: index % 2 !== 0 ? 0 : 'auto' },
+                                    ml: { xs: '58px', md: index % 2 !== 0 ? 0 : 'auto' },
                                     mr: { md: index % 2 !== 0 ? 'auto' : 0 },
-                                    textAlign: { xs: 'left', md: index % 2 === 0 ? 'left' : 'right' }
+                                    textAlign: { xs: 'left', md: index % 2 === 0 ? 'left' : 'right' },
+                                    width: { xs: 'calc(100% - 58px)', md: 'auto' }
                                 }}
                             >
                                 <motion.div
-                                    initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
+                                    initial={{ opacity: 0, x: isMobile ? 30 : (index % 2 === 0 ? 50 : -50) }}
                                     whileInView={{ opacity: 1, x: 0 }}
                                     viewport={{ once: true }}
                                 >
                                     <Box
                                         sx={{
-                                            p: 4,
-                                            borderRadius: 6,
+                                            p: { xs: 3, md: 4 },
+                                            borderRadius: { xs: 4, md: 6 },
                                             background: 'white',
                                             border: '1px solid rgba(0, 0, 0, 0.04)',
                                             boxShadow: 'var(--shadow-soft)',
+                                            position: 'relative',
                                             transition: 'all 0.4s ease',
                                             '&:hover': {
                                                 transform: 'translateY(-5px)',
@@ -193,10 +194,31 @@ const ImpactTimeline = () => {
                                             }
                                         }}
                                     >
-                                        <Typography variant="h5" sx={{ fontWeight: 800, mb: 2, color: item.color }}>
+                                        {/* Mobile Year Badge */}
+                                        {isMobile && (
+                                            <Typography
+                                                variant="caption"
+                                                sx={{
+                                                    display: 'inline-block',
+                                                    color: 'white',
+                                                    backgroundColor: item.color,
+                                                    px: 1.5,
+                                                    py: 0.5,
+                                                    borderRadius: 10,
+                                                    fontWeight: 900,
+                                                    fontSize: '0.7rem',
+                                                    mb: 1.5,
+                                                    letterSpacing: '0.1em'
+                                                }}
+                                            >
+                                                {item.year}
+                                            </Typography>
+                                        )}
+
+                                        <Typography variant="h5" sx={{ fontWeight: 800, mb: 1, color: item.color, fontSize: { xs: '1.1rem', md: '1.5rem' } }}>
                                             {item.title}
                                         </Typography>
-                                        <Typography variant="body1" sx={{ color: 'var(--text-secondary)', lineHeight: 1.7 }}>
+                                        <Typography variant="body1" sx={{ color: 'var(--text-secondary)', lineHeight: 1.6, fontSize: { xs: '0.85rem', md: '1rem' } }}>
                                             {item.description}
                                         </Typography>
                                     </Box>

@@ -34,7 +34,7 @@ const textFieldStyles = {
   '& .MuiOutlinedInput-root': {
     borderRadius: 3,
     backgroundColor: '#fff',
-    '& fieldset': { borderColor: 'rgba(0, 0, 0, 0.08)' },
+    '& fieldset': { borderColor: 'rgba(0, 0, 0, 0.15)' },
     '&:hover fieldset': { borderColor: 'rgba(0, 71, 171, 0.3)' },
     '&.Mui-focused fieldset': { borderColor: 'var(--primary)', borderWidth: 2 },
   },
@@ -173,7 +173,12 @@ const RealEstateListings = ({ open, onClose }) => {
 
   const handleContactClick = (listing) => {
     setSelectedListing(listing);
-    setContactForm({ name: '', phone: '', email: '', message: '' });
+    setContactForm({
+      name: '',
+      phone: '',
+      email: '',
+      message: `I'm interested in this ${listing.type.toLowerCase()}: ${listing.title} at ${listing.location}. Please provide more details.`
+    });
   };
 
   const handleContactSubmit = (e) => {

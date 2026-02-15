@@ -162,7 +162,7 @@ const testimonials = [
 const Testimonials = () => {
     return (
         <Box
-            id="about"
+            id="review"
             sx={{
                 py: { xs: 8, md: 25 },
                 backgroundColor: '#fff',

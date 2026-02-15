@@ -44,8 +44,8 @@ const Hero = () => {
         background: 'var(--bg-primary)',
         position: 'relative',
         overflow: 'hidden',
-        pt: { xs: 6, md: 10 },
-        pb: { xs: 6, md: 10 },
+        pt: { xs: 8, md: 10 },
+        pb: { xs: 4, md: 6 },
       }}
     >
       {/* 🌟 HIGHLY NOTICEABLE Animated Background Elements */}
