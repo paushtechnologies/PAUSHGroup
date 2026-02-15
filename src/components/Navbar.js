@@ -37,7 +37,7 @@ const Navbar = () => {
     };
     window.addEventListener('scroll', handleScroll);
 
-    const sections = ['home', 'services', 'about', 'contact'];
+    const sections = ['home', 'services', 'faq', 'impact', 'about', 'contact'];
     const observerOptions = {
       root: null,
       rootMargin: '-40% 0px -40% 0px',
@@ -68,6 +68,8 @@ const Navbar = () => {
   const menuItems = [
     { label: 'Home', id: 'home' },
     { label: 'Services', id: 'services' },
+    { label: 'FAQ', id: 'faq' },
+    { label: 'Impact', id: 'impact' },
     { label: 'About', id: 'about' },
     { label: 'Contact', id: 'contact' },
   ];

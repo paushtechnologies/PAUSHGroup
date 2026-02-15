@@ -38,8 +38,9 @@ const Footer = () => {
   const quickLinks = [
     { name: 'Home', href: '#home' },
     { name: 'Services', href: '#services' },
+    { name: 'Impact', href: '#impact' },
+    { name: 'FAQ', href: '#faq' },
     { name: 'About', href: '#about' },
-    { name: 'Contact', href: '#contact' },
   ];
 
   const scrollToSection = (href) => {

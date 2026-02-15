@@ -3,10 +3,13 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import FAQ from './components/FAQ';
 import BusinessSection from './components/BusinessSection';
 import Testimonials from './components/Testimonials';
+import ImpactTimeline from './components/ImpactTimeline';
 import FooterWave from './components/FooterWave';
 import Footer from './components/Footer';
+import WhatsAppConcierge from './components/WhatsAppConcierge';
 
 const theme = createTheme({
   palette: {
@@ -97,9 +100,12 @@ function App() {
       <Navbar />
       <Hero />
       <BusinessSection />
+      <FAQ />
       <Testimonials />
+      <ImpactTimeline />
       <FooterWave />
       <Footer />
+      <WhatsAppConcierge />
     </ThemeProvider>
   );
 }
