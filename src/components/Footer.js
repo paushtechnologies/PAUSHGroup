@@ -19,11 +19,23 @@ import {
   Phone,
   LocationOn,
   WhatsApp,
+  MenuBook,
+  HistoryEdu,
 } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+
+  // 🌊 Wave path and its inverse for the white "cap"
+  const wavePath = `M0,60 C60,40 120,80 180,70 C240,60 300,20 360,30 C420,40 480,90 540,80 C600,70 660,30 720,40 C780,50 840,90 900,80 C960,70 1020,30 1080,40 C1140,50 1200,90 1260,80 C1320,70 1380,40 1440,50 C1500,60 1560,20 1620,30 C1680,40 1740,80 1800,70 L1800,100 L0,100 Z`;
+
+  // This mask shows the TOP part (the white cap) and cuts out the wave area for the liquid to show through
+  const inverseMaskSvg = encodeURIComponent(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 100" preserveAspectRatio="none">
+       <path d="M0,0 H1800 V100 H0 Z ${wavePath}" fill-rule="evenodd" fill="black"></path>
+    </svg>
+  `);
 
   const businessLinks = [
     { name: 'Digital Solutions', href: '#digital-solutions' },
@@ -46,15 +58,10 @@ const Footer = () => {
   const scrollToSection = (href) => {
     const el = document.querySelector(href);
     if (el) {
-      // Use a slightly larger offset to account for our sticky hierarchy (tops start at 100 on md)
       const offset = href === '#home' ? 0 : 120;
       const elementPosition = el.getBoundingClientRect().top + window.pageYOffset;
       const offsetPosition = elementPosition - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
+      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
     }
   };
 
@@ -63,21 +70,29 @@ const Footer = () => {
       id="contact"
       component="footer"
       sx={{
-        backgroundColor: '#f8fafc',
+        backgroundColor: '#cbd5e1', // Match the new deeper background
         position: 'relative',
         overflow: 'hidden',
-        pt: { xs: 2.5, md: 12 },
+        pt: { xs: 6, md: 0 },
         pb: { xs: 2, md: 4 },
       }}
     >
-      {/* 🌟 VIBRANT LIGHT MOTION BACKGROUND */}
-      <Box className="footer-liquid-container">
+      {/* 🌟 UNIVERSAL LIQUID BACKGROUND (ONE CONTAINER FOR ALL) */}
+      <Box
+        className="footer-liquid-container"
+        sx={{
+          position: 'absolute',
+          inset: 0,
+          zIndex: 0,
+          background: '#cbd5e1' // Synchronized with index.css (Slate 300)
+        }}
+      >
         <Box className="glow-orb orb-1" />
         <Box className="glow-orb orb-2" />
         <Box className="glow-orb orb-3" />
         <Box className="footer-grid-overlay" />
         <Box className="grid-scanner" />
-        {[...Array(12)].map((_, i) => (
+        {[...Array(20)].map((_, i) => (
           <Box
             key={i}
             className="footer-micro-dot"
@@ -91,7 +106,60 @@ const Footer = () => {
         ))}
       </Box>
 
-      <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 10 }}>
+      {/* 🌊 SEAMLESS WAVE CAP (WHITE OVERLAY MASKED AT BOTTOM) */}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: { xs: '60px', md: '110px' },
+          backgroundColor: '#ffffff',
+          zIndex: 5,
+          maskImage: `url("data:image/svg+xml;charset=utf-8,${inverseMaskSvg}")`,
+          webkitMaskImage: `url("data:image/svg+xml;charset=utf-8,${inverseMaskSvg}")`,
+          maskSize: "200% 100%",
+          webkitMaskSize: "200% 100%",
+          maskRepeat: "repeat-x",
+          webkitMaskRepeat: "repeat-x",
+          animation: "waveMask 22s linear infinite",
+          pointerEvents: 'none'
+        }}
+      />
+
+      <style>
+        {`
+          @keyframes waveMask {
+            0% { mask-position: 0% 0; -webkit-mask-position: 0% 0; }
+            100% { mask-position: 100% 0; -webkit-mask-position: 100% 0; }
+          }
+          @keyframes floatBadge {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-4px) rotate(0.5deg); }
+          }
+          @keyframes shineBadge {
+            0% { left: -150%; }
+            25% { left: 150%; }
+            100% { left: 150%; }
+          }
+          @keyframes auraPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.8; }
+          }
+          @keyframes bookOpen {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.2) rotate(-5deg); opacity: 1; }
+          }
+          @keyframes penWrite {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(3px, -2px) rotate(10deg); }
+            50% { transform: translate(0px, 0px) rotate(0deg); }
+            75% { transform: translate(-3px, -2px) rotate(-10deg); }
+          }
+        `}
+      </style>
+
+      <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 10, pt: { xs: 12, md: 18 } }}>
         <Grid container spacing={{ xs: 2, lg: 8 }}>
           {/* Main Brand Section */}
           <Grid item xs={12} lg={5}>
@@ -267,7 +335,7 @@ const Footer = () => {
                     <Box sx={{ width: '12px', height: '2.5px', background: 'var(--accent)', borderRadius: 2 }} />
                   </Typography>
                 </Box>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.5, md: 2.5 } }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.5, md: 2 } }}>
                   {businessLinks.map((link) => (
                     <Link
                       key={link.name}
@@ -343,7 +411,7 @@ const Footer = () => {
                     <Box sx={{ width: '12px', height: '2.5px', background: 'var(--accent)', borderRadius: 2 }} />
                   </Typography>
                 </Box>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.8, md: 4 }, alignItems: { xs: 'center', sm: 'flex-start' } }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.8, md: 2.5 }, alignItems: { xs: 'center', sm: 'flex-start' } }}>
                   <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start', justifyContent: { xs: 'center', sm: 'flex-start' } }}>
                     <LocationOn sx={{ color: 'var(--primary)', fontSize: { xs: 20, md: 24 }, mt: 0.5 }} />
                     <Typography variant="body1" sx={{ fontWeight: 700, color: '#0f172a', lineHeight: 1.4, fontSize: { xs: '0.8rem', md: '1rem' }, textAlign: { xs: 'center', sm: 'left' } }}>
@@ -419,7 +487,136 @@ const Footer = () => {
           ))}
         </Box> */}
 
-        <Divider sx={{ my: { xs: 1.5, md: 6 }, borderColor: 'rgba(0, 71, 171, 0.12)' }} />
+        {/* 🎨 PREMIUM CRAFTED BY BADGE - DESKTOP ONLY */}
+        <Box
+          sx={{
+            display: { xs: 'none', md: 'block' },
+            mt: 2,
+            pt: 6,
+            pb: 4,
+            textAlign: "center",
+            perspective: "1000px",
+            position: "relative",
+            overflow: "hidden",
+          }}
+        >
+          {/* Cinematic Aura behind badge */}
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: "300px",
+              height: "100px",
+              background: "radial-gradient(circle, rgba(0, 71, 171, 0.15) 0%, transparent 70%)",
+              filter: "blur(20px)",
+              borderRadius: "50%",
+              zIndex: 0,
+              animation: "auraPulse 3s ease-in-out infinite",
+            }}
+          />
+
+          <Box
+            sx={{
+              display: "inline-flex",
+              flexDirection: "column",
+              alignItems: "center",
+              position: "relative",
+              zIndex: 1,
+              animation: "floatBadge 4s ease-in-out infinite",
+            }}
+          >
+            <Box
+              component="a"
+              href="https://paushtechnologies.github.io/"
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{
+                position: "relative",
+                display: "flex",
+                alignItems: "center",
+                gap: 1.5,
+                px: 6,
+                py: 2,
+                borderRadius: "100px",
+                background: "rgba(255, 255, 255, 0.7)",
+                backdropFilter: "blur(15px)",
+                border: "1px solid rgba(0, 71, 171, 0.1)",
+                boxShadow: "0 10px 40px rgba(0,0,0,0.05)",
+                overflow: "hidden",
+                textDecoration: 'none'
+              }}
+            >
+              {/* Moving Light Beam */}
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: 0,
+                  left: "-150%",
+                  width: "100%",
+                  height: "100%",
+                  background: "linear-gradient(90deg, transparent, rgba(0, 196, 204, 0.1), transparent)",
+                  transform: "skewX(-30deg)",
+                  animation: "shineBadge 6s cubic-bezier(0.4, 0, 0.2, 1) infinite",
+                }}
+              />
+
+              <Typography
+                component="div"
+                sx={{
+                  color: "var(--primary)",
+                  fontSize: "1.05rem",
+                  letterSpacing: "2px",
+                  fontWeight: 900,
+                  textTransform: "uppercase",
+                  fontFamily: "'Outfit', sans-serif",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 1,
+                  opacity: 0.85
+                }}
+              >
+                CRAFTED
+                <Box sx={{ mx: 1, display: "flex", alignItems: "center", gap: 0.3, position: "relative" }}>
+                  <MenuBook
+                    sx={{
+                      fontSize: 20,
+                      color: "var(--accent)",
+                      animation: "bookOpen 3s infinite",
+                    }}
+                  />
+                  <HistoryEdu
+                    sx={{
+                      fontSize: 18,
+                      color: "var(--accent)",
+                      animation: "penWrite 3s infinite",
+                      ml: -0.5,
+                    }}
+                  />
+                </Box>
+                BY
+              </Typography>
+
+              <Typography
+                sx={{
+                  fontFamily: "'Merriweather', serif",
+                  fontWeight: 900,
+                  fontSize: "1.4rem",
+                  letterSpacing: "1px",
+                  lineHeight: 1.1,
+                  whiteSpace: "nowrap",
+                  color: "var(--primary)",
+                  filter: "drop-shadow(0 3px 8px rgba(0,0,0,0.1))",
+                  ml: 1
+                }}
+              >
+                PAUSH Technologies
+              </Typography>
+            </Box>
+          </Box>
+        </Box>
 
         <Box
           sx={{
@@ -431,7 +628,7 @@ const Footer = () => {
           }}
         >
           <Typography variant="body2" sx={{ color: '#475569', fontWeight: 800, letterSpacing: '0.05em', textAlign: 'center', fontSize: { xs: '0.65rem', md: '0.8rem' } }}>
-            © {currentYear} PAUSH GROUP. BUILT FOR THE FUTURE.
+            © 2024 PAUSH GROUP. MADE WITH PRECISION
           </Typography>
 
           <Box sx={{ display: 'flex', gap: { xs: 2.5, md: 6 }, justifyContent: 'center' }}>
@@ -443,6 +640,7 @@ const Footer = () => {
             </Link>
           </Box>
         </Box>
+
       </Container>
     </Box>
   );

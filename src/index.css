@@ -166,8 +166,8 @@ html {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: #f1f5f9;
-  /* Slightly deeper light gray base for contrast */
+  background: #cbd5e1;
+  /* Deepened to Slate 300 for a more balanced "darker" look */
   z-index: 0;
 }
 
@@ -213,11 +213,11 @@ html {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(0, 51, 128, 0.12) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 51, 128, 0.12) 1px, transparent 1px);
+    linear-gradient(rgba(0, 71, 171, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 51, 128, 0.18) 1px, transparent 1px);
   /* More visible grid */
   background-size: 60px 60px;
-  mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+  mask-image: linear-gradient(to bottom, black 85%, transparent);
   z-index: 1;
 }
 

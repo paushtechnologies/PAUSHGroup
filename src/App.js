@@ -7,7 +7,6 @@ import FAQ from './components/FAQ';
 import BusinessSection from './components/BusinessSection';
 import Testimonials from './components/Testimonials';
 import ImpactTimeline from './components/ImpactTimeline';
-import FooterWave from './components/FooterWave';
 import Footer from './components/Footer';
 import WhatsAppConcierge from './components/WhatsAppConcierge';
 
@@ -103,7 +102,6 @@ function App() {
       <FAQ />
       <Testimonials />
       <ImpactTimeline />
-      <FooterWave />
       <Footer />
       <WhatsAppConcierge />
     </ThemeProvider>
