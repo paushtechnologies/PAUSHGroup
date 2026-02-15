@@ -69,12 +69,12 @@ const StickyCard = ({ business, index, handleCardClick, setConsultationOpen, set
   };
 
   // Scale: Enters at 0.96 -> Active at 1.0 -> Shrinks to 0.8 as it is 'covered'
-  const smoothScale = useSpring(useTransform(scrollYProgress, [0, 0.3, 0.6, 0.9], [0.96, 1, 1, 0.8]), springConfig);
+  const smoothScale = useSpring(useTransform(scrollYProgress, [0, 0.2, 0.5, 0.8], [0.96, 1, 1, 0.8]), springConfig);
   // Opacity: Fades in -> Stays opaque -> Dips slightly to 0.5 as it recedes
-  const smoothOpacity = useSpring(useTransform(scrollYProgress, [0, 0.2, 0.7, 0.9], [0, 1, 1, 0.5]), springConfig);
+  const smoothOpacity = useSpring(useTransform(scrollYProgress, [0, 0.15, 0.6, 0.8], [0, 1, 1, 0.5]), springConfig);
   // Last card starts appearing slightly later to give Swift Logistics more 'breathing room'
   const smoothY = useSpring(
-    useTransform(scrollYProgress, business.isLast ? [0.1, 0.4] : [0, 0.3], [120, 0]),
+    useTransform(scrollYProgress, business.isLast ? [0.05, 0.3] : [0, 0.2], [120, 0]),
     springConfig
   );
 
@@ -85,9 +85,8 @@ const StickyCard = ({ business, index, handleCardClick, setConsultationOpen, set
         position: 'sticky',
         // Cumulative top offset for both mobile and desktop to create a 'stack' effect at the top
         top: { xs: 75 + (index * 15), md: 100 + (index * 20) },
-        // For the last card, use a standard margin to avoid excess footer gap
-        // Otherwise, use scroll depth for the 'shrink-on-exit' effect
-        mb: business.isLast ? { xs: 2, md: 4 } : { xs: '60vh', md: '80vh' },
+        // Reduced distances to minimize "hard work" scrolling
+        mb: business.isLast ? { xs: 2, md: 4 } : { xs: '30vh', md: '45vh' },
         zIndex: index,
         willChange: 'transform, opacity',
       }}
